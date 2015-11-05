@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Greet</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="story">Stories</string>
+    <string name="horoscope">Horoscope</string>
+    <string name="quotes">Quotes</string>
+    <string name="places">Places</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_horo_fragment">Hello Horoscope fragment</string>
+    <string name="hello_story_fragment">Hello Story fragment</string>
+</resources>
