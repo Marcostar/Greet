@@ -1,8 +1,6 @@
 package com.sagycorp.greet.Fragments;
 
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -19,11 +17,11 @@ import android.widget.TextView;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.sagycorp.greet.MainActivity;
+import com.android.volley.toolbox.NetworkImageView;
 import com.sagycorp.greet.MySingleton;
 import com.sagycorp.greet.R;
-import com.sagycorp.greet.Startup;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,27 +29,25 @@ import org.json.JSONObject;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HoroScope extends Fragment {
+public class Places extends Fragment {
 
-    private View rootview;
-    private ScrollView scrollViewLayout;
-    private LinearLayout LoadingLayout,LoadingFirst, ErrorLayout;
+    private NetworkImageView PlaceImage;
+    private TextView PlaceTitle, PlaceDescription;
+    private String url = "http://192.168.1.3/Greet/story.php";
+    private ImageLoader imageLoader;
+    private ScrollView PlacesViewLayout;
+    private LinearLayout LoadingLayout, ErrorLayout;
     private SwipeRefreshLayout RefreshLayout;
-    SharedPreferences sharedPreferences ;
     private Boolean visiblity = false;
-    private TextView signName, signDate, signQuote;
-    private String url = "http://192.168.1.3/Greet/Horoscope/";
-    private String horoScope;
-    private MainActivity activity = new MainActivity();
 
-    public HoroScope() {
+
+    public Places() {
         // Required empty public constructor
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         // Notify the system to allow an options menu for this fragment.
         setHasOptionsMenu(true);
     }
@@ -60,59 +56,39 @@ public class HoroScope extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        sharedPreferences = getActivity().getSharedPreferences(Startup.PreferenceSETTINGS, Context.MODE_PRIVATE);
-        rootview = inflater.inflate(R.layout.fragment_horo_scope, container, false);
-        signName = (TextView) rootview.findViewById(R.id.signName);
-        signDate = (TextView) rootview.findViewById(R.id.signDate);
-        signQuote = (TextView) rootview.findViewById(R.id.signQuote);
-        scrollViewLayout = (ScrollView) rootview.findViewById(R.id.HoroScrollView);
-        LoadingLayout = (LinearLayout) rootview.findViewById(R.id.Loading);
+       final View rootView = inflater.inflate(R.layout.fragment_places, container, false);
+        PlaceImage = (NetworkImageView) rootView.findViewById(R.id.PlaceImage);
+        PlaceTitle = (TextView) rootView.findViewById(R.id.PlaceTitle);
+        PlaceDescription = (TextView) rootView.findViewById(R.id.PlaceDescription);
+        PlacesViewLayout = (ScrollView) rootView.findViewById(R.id.PlaceView);
+        /*PlacesViewLayout.setVisibility(View.GONE);*/
+        LoadingLayout = (LinearLayout) rootView.findViewById(R.id.Loading);
         LoadingLayout.setVisibility(View.VISIBLE);
-        LoadingFirst = (LinearLayout) rootview.findViewById(R.id.LoadingFirst);
-        ErrorLayout = (LinearLayout) rootview.findViewById(R.id.Error);
-        RefreshLayout = (SwipeRefreshLayout) rootview.findViewById(R.id.swipeRefresh);
-        horoScope = sharedPreferences.getString(Startup.HoroSign,"Aries");
+        ErrorLayout = (LinearLayout) rootView.findViewById(R.id.Error);
+        RefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefresh);
+        imageLoader = MySingleton.getInstance(this.getActivity()).getImageLoader();
+
         RefreshLayout.setColorSchemeResources(
                 R.color.swipe_color_1, R.color.swipe_color_2,
                 R.color.swipe_color_3, R.color.swipe_color_4);
 
-       /* signName.setText(sharedPreferences.getString(Startup.HoroSign,"Aries"));*/
-        return rootview;
-    }
 
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        RefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                if (!visiblity) {
-                    ErrorLayout.setVisibility(View.GONE);
-                    LoadingFirst.setVisibility(View.VISIBLE);
-                    initiateRequest();
-                }
-            }
-        });
-        initiateRequest();
-
-
+        return rootView;
     }
 
     private void initiateRequest() {
         //Request StoryPage
         RefreshLayout.setRefreshing(true);
-        JsonObjectRequest request = new JsonObjectRequest(url+horoScope+".php", null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest request = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                LoadingFirst.setVisibility(View.GONE);
                 LoadingLayout.setVisibility(View.GONE);
-                scrollViewLayout.setVisibility(View.VISIBLE);
+                PlacesViewLayout.setVisibility(View.VISIBLE);
                 try {
 
-                    signName.setText(sharedPreferences.getString(Startup.HoroSign,"Aries"));
-                    signDate.setText(activity.Stamp());
-                    signQuote.setText(response.getString("Horoscope"));
+                    PlaceTitle.setText(response.getString("Title"));
+                    PlaceDescription.setText(response.getString("Description"));
+                    PlaceImage.setImageUrl(response.getString("ImageURL"), imageLoader);
 
                     //set visiblity
                     visiblity = true;
@@ -127,7 +103,6 @@ public class HoroScope extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 RefreshLayout.setRefreshing(false);
-                LoadingFirst.setVisibility(View.GONE);
                 LoadingLayout.setVisibility(View.GONE);
                 ErrorLayout.setVisibility(View.VISIBLE);
                 System.out.println(error);
@@ -135,6 +110,24 @@ public class HoroScope extends Fragment {
         });
         request.setRetryPolicy(new DefaultRetryPolicy(4000, 2, 2f));
         MySingleton.getInstance(getActivity()).addToRequestQueue(request);
+
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        RefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if(!visiblity){
+                    ErrorLayout.setVisibility(View.GONE);
+                    initiateRequest();
+                }
+            }
+        });
+        initiateRequest();
+
 
     }
 
@@ -156,7 +149,7 @@ public class HoroScope extends Fragment {
                     }
 
                     // Start our refresh background task
-                   // initiateRequest();
+                    initiateRequest();
                 }
                 return true;
 
@@ -167,4 +160,6 @@ public class HoroScope extends Fragment {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }

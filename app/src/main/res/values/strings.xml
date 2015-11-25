@@ -4,13 +4,56 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_settings">Settings</string>
+    <string name="ok">Okay</string>
+    <string name="cancle">Cancle</string>
 
     <string name="story">Stories</string>
     <string name="horoscope">Horoscope</string>
     <string name="quotes">Quotes</string>
     <string name="places">Places</string>
+    <string name="didYouKnow">Did you know?</string>
+    <string name="inspire">Inspire Others</string>
+    <string name="tellFriend">Tell Your Friends</string>
+    <string name="suggestions">Suggestions/Demands</string>
 
-<!-- TODO: Remove or change this placeholder text -->
+    <!--Horoscope selector-->
+    <string name="horo_title">Choose Zodiac Sign</string>
+    <array name="horoscope_selector">
+        <item>Aries: March 21 - April 19</item>
+        <item>Taurus: April 20 - May 20</item>
+        <item>Gemini: May 21 - June 20</item>
+        <item>Cancer: June 21 - July 22</item>
+        <item>Leo: July 23 - August 22</item>
+        <item>Virgo: August 23 - Sept. 22</item>
+        <item>Libra: Sept. 23 - October 22</item>
+        <item>Scorpio: October 23 - Nov. 21</item>
+        <item>Sagittarius: Nov. 22 - Dec. 21</item>
+        <item>Capricorn: Dec. 22 - Jan. 19</item>
+        <item>Aquarius: Jan. 20 - Feb. 18</item>
+        <item>Pisces: Feb. 19 - March 20</item>
+    </array>
+
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_horo_fragment">Hello Horoscope fragment</string>
     <string name="hello_story_fragment">Hello Story fragment</string>
+
+    <!--Layout Messages-->
+    <string name="loading_story">Opening Story Of The Day..</string>
+    <string name="loading_horoscope">Gathering Today\'s Horoscope For You..</string>
+    <string name="loading_error">Oops! Check your internet connection. Pull down screen to refresh.</string>
+
+    <!--Settings-->
+    <string name="refresh">Refresh</string>
+
+    <!--Inspire Text-->
+    <string name="InspireText">If You feel you have a real-life story that can Inspire or bring smiles to others faces, then share your story to reach everyone.</string>
+    <string name="shareHere">SHARE HERE!</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--Facts and Quotes-->
+    <string name="DidYouKnow">The elephant is only one mammal that can\'t jump.</string>
+    <string name="Quotes">Innovation distinguishes between a leader and a follower. - STEVE JOBS</string>
+
 </resources>

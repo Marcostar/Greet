@@ -10,15 +10,20 @@
             android:title="@string/places" />
         <item android:id="@+id/nav_quotes" android:icon="@android:drawable/ic_menu_manage"
             android:title="@string/quotes" />
+        <item android:id="@+id/nav_know" android:icon="@android:drawable/ic_menu_manage"
+            android:title="@string/didYouKnow"/>
+        <item android:id="@+id/nav_shareStory" android:icon="@android:drawable/ic_menu_manage"
+            android:title="@string/inspire"/>
     </group>
 
-    <!--<item android:title="Communicate">
+
+    <item android:title="Advice">
         <menu>
             <item android:id="@+id/nav_share" android:icon="@android:drawable/ic_menu_share"
-                android:title="Share" />
-            <item android:id="@+id/nav_send" android:icon="@android:drawable/ic_menu_send"
-                android:title="Send" />
+                android:title="@string/tellFriend" />
+            <item android:id="@+id/nav_suggestions" android:icon="@android:drawable/ic_menu_send"
+                android:title="@string/suggestions" />
         </menu>
-    </item>-->
+    </item>
 
 </menu>

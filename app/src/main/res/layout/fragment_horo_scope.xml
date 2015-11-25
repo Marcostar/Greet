@@ -1,9 +1,118 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context="com.sagycorp.greet.Fragments.HoroScope">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/horo">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="@string/hello_horo_fragment" />
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-</FrameLayout>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/LoadingFirst"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center">
+
+                <TextView
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/loading_horoscope"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="16sp"/>
+
+            </LinearLayout>
+        </ScrollView>
+
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <ScrollView
+        android:id="@+id/HoroScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/signName"
+                android:gravity="center_horizontal"
+                android:padding="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Aries"
+                android:textStyle="italic"
+                android:textColor="@android:color/background_light"
+                android:textSize="24sp"/>
+
+            <TextView
+                android:id="@+id/signDate"
+                android:gravity="center"
+                android:padding="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="March 24, 1992"
+                android:textSize="16sp"
+                android:textColor="@android:color/background_light"/>
+
+            <TextView
+                android:id="@+id/signQuote"
+                android:gravity="center"
+                android:padding="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textColor="@android:color/background_light"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris lectus mi, finibus ut ligula eu, faucibus tincidunt leo. Ut mattis porttitor felis malesuada rhoncus. Nulla laoreet euismod felis. Mauris et consequat sem, quis accumsan lorem. Ut ac feugiat ex. Integer vitae urna non orci porta ultricies sed ut magna. Mauris vitae felis lobortis, consectetur massa nec, placerat ex. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque laoreet ullamcorper porta. Praesent ac mauris lobortis nisl dapibus sollicitudin. Vivamus accumsan, augue sed fermentum vehicula, massa orci sodales leo, eget faucibus lorem velit quis enim. Donec tempor est quis tristique tincidunt. Vestibulum at ullamcorper lorem. Quisque id dolor at arcu consectetur porttitor."/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/Loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:visibility="gone">
+
+        <TextView
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/loading_horoscope"
+            android:textColor="@android:color/background_light"
+            android:textSize="16sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/Error"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/background_light"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:textColor="@android:color/background_dark"
+            android:text="@string/loading_error"/>
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>
