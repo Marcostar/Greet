@@ -40,7 +40,7 @@ public class HoroScope extends Fragment {
     SharedPreferences sharedPreferences ;
     private Boolean visiblity = false;
     private TextView signName, signDate, signQuote;
-    private String url = "http://192.168.1.3/Greet/Horoscope/";
+    private String url = "http://192.168.1.4/Greet/Horoscope/";
     private String horoScope;
     private MainActivity activity = new MainActivity();
 
@@ -61,7 +61,7 @@ public class HoroScope extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         sharedPreferences = getActivity().getSharedPreferences(Startup.PreferenceSETTINGS, Context.MODE_PRIVATE);
-        rootview = inflater.inflate(R.layout.fragment_horo_scope, container, false);
+        rootview = inflater.inflate(R.layout.fragment_horoscope, container, false);
         signName = (TextView) rootview.findViewById(R.id.signName);
         signDate = (TextView) rootview.findViewById(R.id.signDate);
         signQuote = (TextView) rootview.findViewById(R.id.signQuote);

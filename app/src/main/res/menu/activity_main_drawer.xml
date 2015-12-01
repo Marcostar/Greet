@@ -2,27 +2,24 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
-        <item android:id="@+id/nav_story" android:icon="@android:drawable/ic_menu_camera"
+        <item android:id="@+id/nav_story" android:icon="@mipmap/people"
             android:title="@string/story" />
-        <item android:id="@+id/nav_horoscope" android:icon="@android:drawable/ic_menu_gallery"
+        <item android:id="@+id/nav_horoscope" android:icon="@mipmap/horoscope"
             android:title="@string/horoscope" />
-        <item android:id="@+id/nav_places" android:icon="@android:drawable/ic_menu_slideshow"
+        <item android:id="@+id/nav_places" android:icon="@mipmap/places"
             android:title="@string/places" />
-        <item android:id="@+id/nav_quotes" android:icon="@android:drawable/ic_menu_manage"
+        <item android:id="@+id/nav_quotes" android:icon="@mipmap/quote"
             android:title="@string/quotes" />
-        <item android:id="@+id/nav_know" android:icon="@android:drawable/ic_menu_manage"
+        <item android:id="@+id/nav_know" android:icon="@mipmap/box"
             android:title="@string/didYouKnow"/>
-        <item android:id="@+id/nav_shareStory" android:icon="@android:drawable/ic_menu_manage"
-            android:title="@string/inspire"/>
+
     </group>
 
 
     <item android:title="Advice">
         <menu>
-            <item android:id="@+id/nav_share" android:icon="@android:drawable/ic_menu_share"
-                android:title="@string/tellFriend" />
-            <item android:id="@+id/nav_suggestions" android:icon="@android:drawable/ic_menu_send"
-                android:title="@string/suggestions" />
+            <item android:id="@+id/nav_shareStory" android:icon="@mipmap/story"
+                android:title="@string/inspire"/>
         </menu>
     </item>
 

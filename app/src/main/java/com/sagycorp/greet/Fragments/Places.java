@@ -33,7 +33,7 @@ public class Places extends Fragment {
 
     private NetworkImageView PlaceImage;
     private TextView PlaceTitle, PlaceDescription;
-    private String url = "http://192.168.1.3/Greet/story.php";
+    private String url = "http://192.168.1.4/Greet/story.php";
     private ImageLoader imageLoader;
     private ScrollView PlacesViewLayout;
     private LinearLayout LoadingLayout, ErrorLayout;

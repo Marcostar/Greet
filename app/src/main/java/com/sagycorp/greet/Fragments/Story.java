@@ -34,7 +34,7 @@ public class Story extends Fragment {
 
     private NetworkImageView StoryImage;
     private TextView StoryTitle, StoryDescription;
-    private String url = "http://192.168.1.3/Greet/story.php";
+    private String url = "http://192.168.1.4/Greet/story.php";
     private ImageLoader imageLoader;
     private ScrollView StoryViewLayout;
     private LinearLayout LoadingLayout, ErrorLayout;

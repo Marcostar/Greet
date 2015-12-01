@@ -7,13 +7,13 @@
     <string name="ok">Okay</string>
     <string name="cancle">Cancle</string>
 
-    <string name="story">Stories</string>
+    <string name="story">Scribbles</string>
     <string name="horoscope">Horoscope</string>
-    <string name="quotes">Quotes</string>
-    <string name="places">Places</string>
-    <string name="didYouKnow">Did you know?</string>
-    <string name="inspire">Inspire Others</string>
-    <string name="tellFriend">Tell Your Friends</string>
+    <string name="quotes">Million Dollar Thought</string>
+    <string name="places">Travel Around</string>
+    <string name="didYouKnow">Black Box</string>
+    <string name="inspire">Tell A Tale</string>
+    <string name="tellFriend">Invite Your Friends</string>
     <string name="suggestions">Suggestions/Demands</string>
 
     <!--Horoscope selector-->
@@ -33,9 +33,6 @@
         <item>Pisces: Feb. 19 - March 20</item>
     </array>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_horo_fragment">Hello Horoscope fragment</string>
-    <string name="hello_story_fragment">Hello Story fragment</string>
 
     <!--Layout Messages-->
     <string name="loading_story">Opening Story Of The Day..</string>
@@ -44,6 +41,8 @@
 
     <!--Settings-->
     <string name="refresh">Refresh</string>
+    <string name="chanege_horoscope">Change Zodiac Sign</string>
+    <string name="rate_app">Rate the app</string>
 
     <!--Inspire Text-->
     <string name="InspireText">If You feel you have a real-life story that can Inspire or bring smiles to others faces, then share your story to reach everyone.</string>

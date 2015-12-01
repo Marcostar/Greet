@@ -90,7 +90,7 @@ public class Startup extends AppCompatActivity {
 
                 @Override
                 public void onNothingSelected(AdapterView<?> parent) {
-
+                    sign = "Aries";
                 }
             });
             builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {

@@ -1,6 +1,11 @@
 package com.sagycorp.greet;
 
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -8,10 +13,16 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import com.sagycorp.greet.Fragments.Facts;
 import com.sagycorp.greet.Fragments.HoroScope;
@@ -31,6 +42,7 @@ public class MainActivity extends AppCompatActivity
 
     SharedPreferences sharedPreferences ;
     SharedPreferences.Editor editor;
+    private NavigationView navigationView;
     private Fragment fragment;
     private String sign, title;
 
@@ -45,6 +57,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        sharedPreferences = getSharedPreferences(Startup.PreferenceSETTINGS, Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
         /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,8 +74,9 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setItemIconTintList(null);
         displayView(R.id.nav_story);
     }
 
@@ -94,8 +109,112 @@ public class MainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        if(id == R.id.suggestions)
+        {
+            Intent Email = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "sagar@sagycorp.com", null));
+            Email.putExtra(Intent.EXTRA_SUBJECT,"Advice for making this better app");
+            Email.putExtra(Intent.EXTRA_TEXT, "**Your Demands/Suggestions here**");
+            startActivity(Intent.createChooser(Email, "Share Your Advice with :"));
+            return true;
+        }
+        if (id == R.id.tellFriend)
+        {
+            Intent sendIntent = new Intent(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
+            sendIntent.setType("text/plain");
+            startActivity(sendIntent);
+            return true;
+        }
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.change_horoscope) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            LayoutInflater inflater = this.getLayoutInflater();
+
+            View dialogView = inflater.inflate(R.layout.horoscope_selector,null);
+            builder.setView(dialogView);
+            builder.setTitle(R.string.horo_title);
+            Spinner spinner = (Spinner) dialogView.findViewById(R.id.edition_spinner);
+            ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.horoscope_selector, android.R.layout.simple_spinner_item);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinner.setAdapter(adapter);
+
+            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    Horoscopes = getResources().getStringArray(R.array.horoscope_selector);
+
+                    int positionID = position;
+                    switch (positionID) {
+                        case 0:
+                            sign = "Aries";
+                            break;
+                        case 1:
+                            sign = "Taurus";
+                            break;
+                        case 2:
+                            sign = "Gemini";
+                            break;
+                        case 3:
+                            sign = "Cancer";
+                            break;
+                        case 4:
+                            sign = "Leo";
+                            break;
+                        case 5:
+                            sign = "Virgo";
+                            break;
+                        case 6:
+                            sign = "Libra";
+                            break;
+                        case 7:
+                            sign = "Scorpio";
+                            break;
+                        case 8:
+                            sign = "Sagittarius";
+                            break;
+                        case 9:
+                            sign = "Capricorn";
+                            break;
+                        case 10:
+                            sign = "Aquarius";
+                            break;
+                        case 11:
+                            sign = "Pisces";
+                            break;
+                    }
+
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+            builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    editor.putString(Startup.HoroSign, sign);
+                    editor.putBoolean(Startup.IsHoroSet, false);
+                    editor.apply();
+                    if (Build.VERSION.SDK_INT >= 11) {
+                        recreate();
+                    } else {
+                        Intent intent = getIntent();
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                        finish();
+                        overridePendingTransition(0, 0);
+                        startActivity(intent);
+                        overridePendingTransition(0, 0);
+                    }
+                }
+            }).setNegativeButton(R.string.cancle, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            /*builder.setCancelable(false);*/
+            builder.create().show();
             return true;
         }
 
@@ -107,6 +226,7 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         displayView(item.getItemId());
+
         return true;
     }
 
@@ -184,87 +304,5 @@ public class MainActivity extends AppCompatActivity
         return timeStamp;
     }
 
-    /*public void setHoroscopes()
-    {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = getLayoutInflater();
-
-        View dialogView = inflater.inflate(R.layout.horoscope_selector,null);
-        builder.setView(dialogView);
-        builder.setTitle(R.string.horo_title);
-        Spinner spinner = (Spinner) dialogView.findViewById(R.id.edition_spinner);
-        ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.horoscope_selector, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Horoscopes = getResources().getStringArray(R.array.horoscope_selector);
-
-                int positionID = position;
-                switch (positionID) {
-                    case 0:
-                        sign = "Aries";
-                        break;
-                    case 1:
-                        sign = "Taurus";
-                        break;
-                    case 2:
-                        sign = "Gemini";
-                        break;
-                    case 3:
-                        sign = "Cancer";
-                        break;
-                    case 4:
-                        sign = "Leo";
-                        break;
-                    case 5:
-                        sign = "Virgo";
-                        break;
-                    case 6:
-                        sign = "Libra";
-                        break;
-                    case 7:
-                        sign = "Scorpio";
-                        break;
-                    case 8:
-                        sign = "Sagittarius";
-                        break;
-                    case 9:
-                        sign = "Capricorn";
-                        break;
-                    case 10:
-                        sign = "Aquarius";
-                        break;
-                    case 11:
-                        sign = "Pisces";
-                        break;
-                }
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                editor.putString(MainActivity.HoroSign, sign);
-                editor.apply();
-                editor.putBoolean(MainActivity.IsHoroSet, true);
-                editor.apply();
-            }
-        })*//*.setNegativeButton(R.string.cancle, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        })*//*;
-        builder.setCancelable(false);
-        builder.create().show();
-    }*/
 
 }
