@@ -304,5 +304,18 @@ public class MainActivity extends AppCompatActivity
         return timeStamp;
     }
 
+    public String TodayDate()
+    {
+        DateFormat dateFormat = new SimpleDateFormat("MMMddyyyy");
+
+        Date today = Calendar.getInstance().getTime();
+
+        String timeStamp = dateFormat.format(today);
+
+        return timeStamp;
+    }
+
+
+
 
 }

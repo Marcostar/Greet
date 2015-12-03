@@ -3,7 +3,6 @@ package com.sagycorp.greet;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import com.parse.ParsePushBroadcastReceiver;
 
@@ -15,8 +14,8 @@ import org.json.JSONObject;
  */
 public class NotificationReceiver extends ParsePushBroadcastReceiver {
 
-    public static final String TAG = NotificationReceiver.class.getSimpleName();
-    SharedPreferences sharedPreferences;
+    /*public static final String TAG = NotificationReceiver.class.getSimpleName();*/
+    SharedPreferences sharedPreferences ;
     SharedPreferences.Editor editor;
 
     public NotificationReceiver() {
@@ -26,6 +25,8 @@ public class NotificationReceiver extends ParsePushBroadcastReceiver {
     @Override
     protected void onPushReceive(Context context, Intent intent)
     {
+        sharedPreferences = context.getSharedPreferences(Startup.PreferenceSETTINGS,Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
         super.onPushReceive(context, intent);
 
         if(intent == null)
@@ -35,16 +36,15 @@ public class NotificationReceiver extends ParsePushBroadcastReceiver {
 
         try {
             JSONObject notification = new JSONObject(intent.getExtras().getString("com.parse.Data"));
-            String notificationReceived = notification.getString("alert");
-            Log.d(TAG, notificationReceived);
-            String channelReceived = notification.getString("channel");
+            /*String notificationReceived = notification.getString("alert");*/
+            /*Log.d(TAG, notificationReceived);*/
+            /*String channelReceived = notification.getString("channel");*/
             String Facts = notification.getString("Facts");
             String Quotes = notification.getString("Quotes");
             editor.putString(Startup.DidYouKnow,Facts);
-            editor.putString(Startup.Quotes,Quotes);
+            editor.putString(Startup.Quotes, Quotes);
             editor.apply();
 
-            Log.d(TAG, channelReceived);
         } catch (JSONException e) {
             e.printStackTrace();
         }

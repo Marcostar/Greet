@@ -70,6 +70,8 @@ public class HoroScope extends Fragment {
         LoadingLayout.setVisibility(View.VISIBLE);
         LoadingFirst = (LinearLayout) rootview.findViewById(R.id.LoadingFirst);
         ErrorLayout = (LinearLayout) rootview.findViewById(R.id.Error);
+        String date = activity.TodayDate();
+       // System.out.println(date);
         RefreshLayout = (SwipeRefreshLayout) rootview.findViewById(R.id.swipeRefresh);
         horoScope = sharedPreferences.getString(Startup.HoroSign,"Aries");
         RefreshLayout.setColorSchemeResources(
