@@ -40,8 +40,8 @@ public class HoroScope extends Fragment {
     SharedPreferences sharedPreferences ;
     private Boolean visiblity = false;
     private TextView signName, signDate, signQuote;
-    private String url = "http://192.168.1.4/Greet/Horoscope/";
-    private String horoScope;
+    private String url = "https://regal-river-115009.appspot.com/Horoscope/";
+    private String horoScope, Today;
     private MainActivity activity = new MainActivity();
 
     public HoroScope() {
@@ -70,8 +70,8 @@ public class HoroScope extends Fragment {
         LoadingLayout.setVisibility(View.VISIBLE);
         LoadingFirst = (LinearLayout) rootview.findViewById(R.id.LoadingFirst);
         ErrorLayout = (LinearLayout) rootview.findViewById(R.id.Error);
-        String date = activity.TodayDate();
-       // System.out.println(date);
+        Today = activity.TodayDate();
+        /*System.out.println(Today);*/
         RefreshLayout = (SwipeRefreshLayout) rootview.findViewById(R.id.swipeRefresh);
         horoScope = sharedPreferences.getString(Startup.HoroSign,"Aries");
         RefreshLayout.setColorSchemeResources(
@@ -104,7 +104,7 @@ public class HoroScope extends Fragment {
     private void initiateRequest() {
         //Request StoryPage
         RefreshLayout.setRefreshing(true);
-        JsonObjectRequest request = new JsonObjectRequest(url+horoScope+".php", null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest request = new JsonObjectRequest(url+horoScope+"/"+ Today, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 LoadingFirst.setVisibility(View.GONE);

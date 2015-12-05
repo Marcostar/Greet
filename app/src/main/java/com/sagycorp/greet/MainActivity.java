@@ -244,12 +244,6 @@ public class MainActivity extends AppCompatActivity
                 viewIsAtHome = true;
                 break;
 
-            case R.id.nav_horoscope:
-                fragment = new HoroScope();
-                viewIsAtHome = false;
-                title = getString(R.string.horoscope);
-                break;
-
             case R.id.nav_places:
                 fragment = new Places();
                 title = getString(R.string.places);
@@ -266,6 +260,12 @@ public class MainActivity extends AppCompatActivity
                 fragment = new Facts();
                 title = getString(R.string.didYouKnow);
                 viewIsAtHome = false;
+                break;
+
+            case R.id.nav_horoscope:
+                fragment = new HoroScope();
+                viewIsAtHome = false;
+                title = getString(R.string.horoscope);
                 break;
 
             case R.id.nav_shareStory:
@@ -306,7 +306,7 @@ public class MainActivity extends AppCompatActivity
 
     public String TodayDate()
     {
-        DateFormat dateFormat = new SimpleDateFormat("MMMddyyyy");
+        DateFormat dateFormat = new SimpleDateFormat("ddMMMyyyy");
 
         Date today = Calendar.getInstance().getTime();
 

@@ -20,6 +20,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.NetworkImageView;
+import com.sagycorp.greet.MainActivity;
 import com.sagycorp.greet.MySingleton;
 import com.sagycorp.greet.R;
 
@@ -32,14 +33,15 @@ import org.json.JSONObject;
 public class Places extends Fragment {
 
     private NetworkImageView PlaceImage;
+    private String Today;
     private TextView PlaceTitle, PlaceDescription;
-    private String url = "http://192.168.1.4/Greet/story.php";
+    private String url = "https://regal-river-115009.appspot.com/Places/";
     private ImageLoader imageLoader;
     private ScrollView PlacesViewLayout;
     private LinearLayout LoadingLayout, ErrorLayout;
     private SwipeRefreshLayout RefreshLayout;
     private Boolean visiblity = false;
-
+    private MainActivity activity = new MainActivity();
 
     public Places() {
         // Required empty public constructor
@@ -68,6 +70,8 @@ public class Places extends Fragment {
         RefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefresh);
         imageLoader = MySingleton.getInstance(this.getActivity()).getImageLoader();
 
+        //Today's date
+        Today = activity.TodayDate();
         RefreshLayout.setColorSchemeResources(
                 R.color.swipe_color_1, R.color.swipe_color_2,
                 R.color.swipe_color_3, R.color.swipe_color_4);
@@ -79,7 +83,7 @@ public class Places extends Fragment {
     private void initiateRequest() {
         //Request StoryPage
         RefreshLayout.setRefreshing(true);
-        JsonObjectRequest request = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest request = new JsonObjectRequest(url+Today, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 LoadingLayout.setVisibility(View.GONE);

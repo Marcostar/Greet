@@ -26,6 +26,15 @@
                 android:textSize="22sp"
                 android:textColor="@android:color/background_light" />
 
+            <TextView
+                android:id="@+id/Author"
+                android:padding="4sp"
+                android:gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:textColor="@android:color/background_light" />
+
         </LinearLayout>
 
     </ScrollView>

@@ -41,8 +41,10 @@ public class NotificationReceiver extends ParsePushBroadcastReceiver {
             /*String channelReceived = notification.getString("channel");*/
             String Facts = notification.getString("Facts");
             String Quotes = notification.getString("Quotes");
+            String Author = notification.getString("Author");
             editor.putString(Startup.DidYouKnow,Facts);
             editor.putString(Startup.Quotes, Quotes);
+            editor.putString(Startup.Author, Author);
             editor.apply();
 
         } catch (JSONException e) {

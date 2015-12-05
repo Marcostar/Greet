@@ -35,8 +35,9 @@
 
 
     <!--Layout Messages-->
-    <string name="loading_story">Opening Story Of The Day..</string>
-    <string name="loading_horoscope">Gathering Today\'s Horoscope For You..</string>
+    <string name="loading_story">Opening Story Of The Day&#8230;</string>
+    <string name="loading_places">The captain announced that we are about to land&#8230;</string>
+    <string name="loading_horoscope">Today\'s Horoscope For You&#8230; </string>
     <string name="loading_error">Oops! Check your internet connection. Pull down screen to refresh.</string>
 
     <!--Settings-->
@@ -52,7 +53,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!--Facts and Quotes-->
-    <string name="DidYouKnow">The elephant is only one mammal that can\'t jump.</string>
-    <string name="Quotes">Innovation distinguishes between a leader and a follower. - STEVE JOBS</string>
+    <string name="DidYouKnow">Elephant is the only mammal that can\'t jump.</string>
+    <string name="Quotes">Innovation distinguishes between a leader and a follower.</string>
+    <string name="Author">Steve Jobs</string>
 
 </resources>

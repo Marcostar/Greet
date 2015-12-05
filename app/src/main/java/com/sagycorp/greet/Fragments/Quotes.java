@@ -22,8 +22,8 @@ import com.sagycorp.greet.Startup;
 public class Quotes extends Fragment {
 
     SharedPreferences sharedPreferences;
-    private TextView quoteView;
-    private String Quote;
+    private TextView quoteView, authorView;
+    private String Quote, Author;
 
     public Quotes() {
         // Required empty public constructor
@@ -45,8 +45,11 @@ public class Quotes extends Fragment {
         View view = inflater.inflate(R.layout.fragment_quotes, container, false);
         sharedPreferences = getActivity().getSharedPreferences(Startup.PreferenceSETTINGS, Context.MODE_PRIVATE);
         Quote = sharedPreferences.getString(Startup.Quotes, getString(R.string.Quotes));
+        Author = sharedPreferences.getString(Startup.Author, getString(R.string.Author));
         quoteView = (TextView) view.findViewById(R.id.Quotes);
+        authorView = (TextView) view.findViewById(R.id.Author);
         quoteView.setText(Quote);
+        authorView.setText("- "+ Author);
         return view;
     }
 

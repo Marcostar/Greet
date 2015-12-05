@@ -1,7 +1,6 @@
 package com.sagycorp.greet.Fragments;
 
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -21,6 +20,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.NetworkImageView;
+import com.sagycorp.greet.MainActivity;
 import com.sagycorp.greet.MySingleton;
 import com.sagycorp.greet.R;
 
@@ -34,14 +34,14 @@ public class Story extends Fragment {
 
     private NetworkImageView StoryImage;
     private TextView StoryTitle, StoryDescription;
-    private String url = "http://192.168.1.4/Greet/story.php";
+    private String Today;
+    private String url = "https://regal-river-115009.appspot.com/Stories/";
     private ImageLoader imageLoader;
     private ScrollView StoryViewLayout;
     private LinearLayout LoadingLayout, ErrorLayout;
     private SwipeRefreshLayout RefreshLayout;
     private Boolean visiblity = false;
-    private SharedPreferences sharedPreferences;
-    private SharedPreferences.Editor editor;
+    private MainActivity activity = new MainActivity();
 
     public Story() {
         // Required empty public constructor
@@ -62,8 +62,6 @@ public class Story extends Fragment {
 
         // Inflate the layout for this fragment
         final View rootView = inflater.inflate(R.layout.fragment_story, container, false);
-        //Set Horoscope
-
         StoryImage = (NetworkImageView) rootView.findViewById(R.id.PlaceImage);
         StoryTitle = (TextView) rootView.findViewById(R.id.PlaceTitle);
         StoryDescription = (TextView) rootView.findViewById(R.id.PlaceDescription);
@@ -74,7 +72,8 @@ public class Story extends Fragment {
         ErrorLayout = (LinearLayout) rootView.findViewById(R.id.Error);
         RefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefresh);
         imageLoader = MySingleton.getInstance(this.getActivity()).getImageLoader();
-
+        //Set Today's date
+        Today = activity.TodayDate();
         RefreshLayout.setColorSchemeResources(
                 R.color.swipe_color_1, R.color.swipe_color_2,
                 R.color.swipe_color_3, R.color.swipe_color_4);
@@ -86,7 +85,7 @@ public class Story extends Fragment {
     private void initiateRequest() {
         //Request StoryPage
         RefreshLayout.setRefreshing(true);
-        JsonObjectRequest request = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest request = new JsonObjectRequest(url+Today, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 LoadingLayout.setVisibility(View.GONE);
