@@ -25,6 +25,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import com.parse.ParseAnalytics;
 import com.sagycorp.greet.Fragments.Facts;
 import com.sagycorp.greet.Fragments.HoroScope;
 import com.sagycorp.greet.Fragments.Inspire;
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ParseAnalytics.trackAppOpenedInBackground(getIntent());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -234,8 +236,7 @@ public class MainActivity extends AppCompatActivity
 
 
         }
-        if(id == R.id.rate_app)
-        {
+        if(id == R.id.rate_app) {
 
             Uri uri = Uri.parse("market://details?id=" + getApplicationContext().getPackageName());
             Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
