@@ -2,6 +2,7 @@ package com.sagycorp.greet.Fragments;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -64,7 +65,10 @@ public class Quotes extends Fragment {
         switch (item.getItemId()) {
 
             case R.id.Share:
-
+                Intent sendIntent = new Intent(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
                 return true;
         }
 

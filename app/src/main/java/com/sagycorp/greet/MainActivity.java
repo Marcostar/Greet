@@ -1,5 +1,6 @@
 package com.sagycorp.greet;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -91,7 +92,21 @@ public class MainActivity extends AppCompatActivity
             displayView(R.id.nav_story);
         }
         else {
-            super.onBackPressed();
+            /*super.onBackPressed();*/
+            new AlertDialog.Builder(this)
+                    .setTitle("Read Enough?")
+                    .setCancelable(false)
+                    .setMessage("Are you sure you want to stop reading?")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+
+                    })
+                    .setNegativeButton("No", null)
+                    .show();
         }
     }
 
@@ -216,6 +231,23 @@ public class MainActivity extends AppCompatActivity
             /*builder.setCancelable(false);*/
             builder.create().show();
             return true;
+
+
+        }
+        if(id == R.id.rate_app)
+        {
+
+            Uri uri = Uri.parse("market://details?id=" + getApplicationContext().getPackageName());
+            Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+            // To count with Play market backstack, After pressing back button,
+            // to taken back to our application, we need to add following flags to intent.
+            goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+            try {
+                startActivity(goToMarket);
+            } catch (ActivityNotFoundException e) {
+                startActivity(new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("http://play.google.com/store/apps/details?id=" + getApplicationContext().getPackageName())));
+            }
         }
 
         return super.onOptionsItemSelected(item);

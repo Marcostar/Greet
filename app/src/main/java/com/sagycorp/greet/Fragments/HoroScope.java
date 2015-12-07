@@ -2,6 +2,7 @@ package com.sagycorp.greet.Fragments;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -132,7 +133,7 @@ public class HoroScope extends Fragment {
                 LoadingFirst.setVisibility(View.GONE);
                 LoadingLayout.setVisibility(View.GONE);
                 ErrorLayout.setVisibility(View.VISIBLE);
-                System.out.println(error);
+                //System.out.println(error);
             }
         });
         request.setRetryPolicy(new DefaultRetryPolicy(4000, 2, 2f));
@@ -163,7 +164,10 @@ public class HoroScope extends Fragment {
                 return true;
 
             case R.id.Share:
-
+                Intent sendIntent = new Intent(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
                 return true;
         }
 

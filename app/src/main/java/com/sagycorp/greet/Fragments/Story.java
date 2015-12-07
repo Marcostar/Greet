@@ -1,6 +1,7 @@
 package com.sagycorp.greet.Fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -111,7 +112,7 @@ public class Story extends Fragment {
                 RefreshLayout.setRefreshing(false);
                 LoadingLayout.setVisibility(View.GONE);
                 ErrorLayout.setVisibility(View.VISIBLE);
-                System.out.println(error);
+                //System.out.println(error);
             }
         });
         request.setRetryPolicy(new DefaultRetryPolicy(4000, 2, 2f));
@@ -160,7 +161,10 @@ public class Story extends Fragment {
                 return true;
 
             case R.id.Share:
-
+                Intent sendIntent = new Intent(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
                 return true;
         }
 
