@@ -1,7 +1,9 @@
 package com.sagycorp.greet.Fragments;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -24,6 +26,7 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.sagycorp.greet.MainActivity;
 import com.sagycorp.greet.MySingleton;
 import com.sagycorp.greet.R;
+import com.sagycorp.greet.Startup;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,7 +37,7 @@ import org.json.JSONObject;
 public class Places extends Fragment {
 
     private NetworkImageView PlaceImage;
-    private String Today;
+    private String Today, Destination;
     private TextView PlaceTitle, PlaceDescription;
     private String url = "https://regal-river-115009.appspot.com/Places/";
     private ImageLoader imageLoader;
@@ -42,6 +45,8 @@ public class Places extends Fragment {
     private LinearLayout LoadingLayout, ErrorLayout;
     private SwipeRefreshLayout RefreshLayout;
     private Boolean visiblity = false;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
     private MainActivity activity = new MainActivity();
 
     public Places() {
@@ -60,6 +65,8 @@ public class Places extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
        final View rootView = inflater.inflate(R.layout.fragment_places, container, false);
+        sharedPreferences = getActivity().getSharedPreferences(Startup.PreferenceSETTINGS, Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
         PlaceImage = (NetworkImageView) rootView.findViewById(R.id.PlaceImage);
         PlaceTitle = (TextView) rootView.findViewById(R.id.PlaceTitle);
         PlaceDescription = (TextView) rootView.findViewById(R.id.PlaceDescription);
@@ -90,7 +97,7 @@ public class Places extends Fragment {
                 LoadingLayout.setVisibility(View.GONE);
                 PlacesViewLayout.setVisibility(View.VISIBLE);
                 try {
-
+                    Destination = response.getString("Title");
                     PlaceTitle.setText(response.getString("Title"));
                     PlaceDescription.setText(response.getString("Description"));
                     PlaceImage.setImageUrl(response.getString("ImageURL"), imageLoader);
@@ -159,10 +166,16 @@ public class Places extends Fragment {
                 return true;
 
             case R.id.Share:
-                Intent sendIntent = new Intent(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
-                sendIntent.setType("text/plain");
-                startActivity(sendIntent);
+
+                if (Destination!= null && !Destination.isEmpty())
+                {
+                    Intent sendIntent = new Intent(Intent.ACTION_SEND);
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, "Visit scenic\n"+ Destination + " via GREET."+"\nDownload GREET\n"+ "goo.gl/t1b95O");
+                    sendIntent.setType("text/plain");
+                    startActivity(sendIntent);
+                }
+
+
                 return true;
         }
 

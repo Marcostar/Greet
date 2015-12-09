@@ -66,7 +66,7 @@ public class Quotes extends Fragment {
 
             case R.id.Share:
                 Intent sendIntent = new Intent(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
+                sendIntent.putExtra(Intent.EXTRA_TEXT, Quote + "\n-"+ Author + "\nshared via GREET."+"\nDownload GREET here\n"+ "goo.gl/t1b95O");
                 sendIntent.setType("text/plain");
                 startActivity(sendIntent);
                 return true;

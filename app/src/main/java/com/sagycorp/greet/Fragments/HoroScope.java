@@ -42,7 +42,7 @@ public class HoroScope extends Fragment {
     private Boolean visiblity = false;
     private TextView signName, signDate, signQuote;
     private String url = "https://regal-river-115009.appspot.com/Horoscope/";
-    private String horoScope, Today;
+    private String Sign, Today, Today_Horoscope;
     private MainActivity activity = new MainActivity();
 
     public HoroScope() {
@@ -74,7 +74,7 @@ public class HoroScope extends Fragment {
         Today = activity.TodayDate();
         /*System.out.println(Today);*/
         RefreshLayout = (SwipeRefreshLayout) rootview.findViewById(R.id.swipeRefresh);
-        horoScope = sharedPreferences.getString(Startup.HoroSign,"Aries");
+        Sign = sharedPreferences.getString(Startup.HoroSign,"Aries");
         RefreshLayout.setColorSchemeResources(
                 R.color.swipe_color_1, R.color.swipe_color_2,
                 R.color.swipe_color_3, R.color.swipe_color_4);
@@ -105,7 +105,7 @@ public class HoroScope extends Fragment {
     private void initiateRequest() {
         //Request StoryPage
         RefreshLayout.setRefreshing(true);
-        JsonObjectRequest request = new JsonObjectRequest(url+horoScope+"/"+ Today, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest request = new JsonObjectRequest(url+ Sign +"/"+ Today, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 LoadingFirst.setVisibility(View.GONE);
@@ -113,8 +113,9 @@ public class HoroScope extends Fragment {
                 scrollViewLayout.setVisibility(View.VISIBLE);
                 try {
 
-                    signName.setText(sharedPreferences.getString(Startup.HoroSign,"Aries"));
+                    signName.setText(sharedPreferences.getString(Startup.HoroSign, "Aries"));
                     signDate.setText(activity.Stamp());
+                    Today_Horoscope = response.getString("Horoscope");
                     signQuote.setText(response.getString("Horoscope"));
 
                     //set visiblity
@@ -164,10 +165,15 @@ public class HoroScope extends Fragment {
                 return true;
 
             case R.id.Share:
-                Intent sendIntent = new Intent(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
-                sendIntent.setType("text/plain");
-                startActivity(sendIntent);
+
+                if (Today_Horoscope!= null && !Today_Horoscope.isEmpty())
+                {
+                    Intent sendIntent = new Intent(Intent.ACTION_SEND);
+                    sendIntent.putExtra(Intent.EXTRA_TEXT,  "My today's horoscope:\n"+ Today_Horoscope + " via GREET"+"\nDownload GREET here: "+ "goo.gl/t1b95O");
+                    sendIntent.setType("text/plain");
+                    startActivity(sendIntent);
+                }
+
                 return true;
         }
 

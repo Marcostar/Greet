@@ -15,3 +15,12 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+
+    -keepattributes Annotation,SourceFile,LineNumberTable
+    -keep class com.parse.* { *; }
+    -dontwarn com.parse.**
+    -keepclasseswithmembernames class * {native <methods>; }
+
+
+

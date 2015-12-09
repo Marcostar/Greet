@@ -1,7 +1,9 @@
 package com.sagycorp.greet.Fragments;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -24,6 +26,7 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.sagycorp.greet.MainActivity;
 import com.sagycorp.greet.MySingleton;
 import com.sagycorp.greet.R;
+import com.sagycorp.greet.Startup;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,13 +38,15 @@ public class Story extends Fragment {
 
     private NetworkImageView StoryImage;
     private TextView StoryTitle, StoryDescription;
-    private String Today;
+    private String Today, InShort;
     private String url = "https://regal-river-115009.appspot.com/Stories/";
     private ImageLoader imageLoader;
     private ScrollView StoryViewLayout;
     private LinearLayout LoadingLayout, ErrorLayout;
     private SwipeRefreshLayout RefreshLayout;
     private Boolean visiblity = false;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
     private MainActivity activity = new MainActivity();
 
     public Story() {
@@ -63,6 +68,8 @@ public class Story extends Fragment {
 
         // Inflate the layout for this fragment
         final View rootView = inflater.inflate(R.layout.fragment_story, container, false);
+        sharedPreferences = getActivity().getSharedPreferences(Startup.PreferenceSETTINGS, Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
         StoryImage = (NetworkImageView) rootView.findViewById(R.id.PlaceImage);
         StoryTitle = (TextView) rootView.findViewById(R.id.PlaceTitle);
         StoryDescription = (TextView) rootView.findViewById(R.id.PlaceDescription);
@@ -92,7 +99,7 @@ public class Story extends Fragment {
                 LoadingLayout.setVisibility(View.GONE);
                 StoryViewLayout.setVisibility(View.VISIBLE);
                 try {
-
+                    InShort = response.getString("Title");
                     StoryTitle.setText(response.getString("Title"));
                     StoryDescription.setText(response.getString("Description"));
                     StoryImage.setImageUrl(response.getString("ImageURL"),imageLoader);
@@ -161,10 +168,16 @@ public class Story extends Fragment {
                 return true;
 
             case R.id.Share:
-                Intent sendIntent = new Intent(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
-                sendIntent.setType("text/plain");
-                startActivity(sendIntent);
+                //InShort = sharedPreferences.getString(Startup.InShort, null);
+
+                if (InShort!= null && !InShort.isEmpty())
+                {
+                    Intent sendIntent = new Intent(Intent.ACTION_SEND);
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, "Read article about\n"+ InShort +" via GREET."+"\nDownload GREET \n"+ "goo.gl/t1b95O");
+                    sendIntent.setType("text/plain");
+                    startActivity(sendIntent);
+                }
+
                 return true;
         }
 
