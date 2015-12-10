@@ -170,7 +170,7 @@ public class Places extends Fragment {
                 if (Destination!= null && !Destination.isEmpty())
                 {
                     Intent sendIntent = new Intent(Intent.ACTION_SEND);
-                    sendIntent.putExtra(Intent.EXTRA_TEXT, "Visit scenic\n"+ Destination + " via GREET."+"\nDownload GREET\n"+ "goo.gl/t1b95O");
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, "Visit Scenic\n"+ Destination + "\nvia GREET."+"\nDownload GREET\n"+ "https://goo.gl/Sdc4w4");
                     sendIntent.setType("text/plain");
                     startActivity(sendIntent);
                 }

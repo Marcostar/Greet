@@ -81,6 +81,8 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setItemIconTintList(null);
         displayView(R.id.nav_story);
+        navigationView.setCheckedItem(R.id.nav_story);
+        /*navigationView.getMenu().getItem(0).setChecked(true);*/
     }
 
     @Override
@@ -92,6 +94,7 @@ public class MainActivity extends AppCompatActivity
         if(!viewIsAtHome)
         {
             displayView(R.id.nav_story);
+            navigationView.setCheckedItem(R.id.nav_story);
         }
         else {
             /*super.onBackPressed();*/
@@ -128,7 +131,7 @@ public class MainActivity extends AppCompatActivity
 
         if(id == R.id.suggestions)
         {
-            Intent Email = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "sagar@sagycorp.com", null));
+            Intent Email = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "sagarghadge2403@gmail.com", null));
             Email.putExtra(Intent.EXTRA_SUBJECT,"Advice for making this better app");
             Email.putExtra(Intent.EXTRA_TEXT, "**Your Demands/Suggestions here**");
             startActivity(Intent.createChooser(Email, "Share Your Advice with :"));
@@ -137,7 +140,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.tellFriend)
         {
             Intent sendIntent = new Intent(Intent.ACTION_SEND);
-            sendIntent.putExtra(Intent.EXTRA_TEXT, ""+"\nDownload GREET here:\n"+ "goo.gl/t1b95O");
+            sendIntent.putExtra(Intent.EXTRA_TEXT, "I found very interesting app!!\nGREET! Your storyteller, trip consultant, an astrological advisor and much more."+"\nDownload GREET\n"+ "https://goo.gl/Sdc4w4");
             sendIntent.setType("text/plain");
             startActivity(sendIntent);
             return true;

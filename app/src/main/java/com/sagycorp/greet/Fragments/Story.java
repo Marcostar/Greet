@@ -99,7 +99,7 @@ public class Story extends Fragment {
                 LoadingLayout.setVisibility(View.GONE);
                 StoryViewLayout.setVisibility(View.VISIBLE);
                 try {
-                    InShort = response.getString("Title");
+                    InShort = response.getString("InShort");
                     StoryTitle.setText(response.getString("Title"));
                     StoryDescription.setText(response.getString("Description"));
                     StoryImage.setImageUrl(response.getString("ImageURL"),imageLoader);
@@ -173,7 +173,7 @@ public class Story extends Fragment {
                 if (InShort!= null && !InShort.isEmpty())
                 {
                     Intent sendIntent = new Intent(Intent.ACTION_SEND);
-                    sendIntent.putExtra(Intent.EXTRA_TEXT, "Read article about\n"+ InShort +" via GREET."+"\nDownload GREET \n"+ "goo.gl/t1b95O");
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, "Read\n"+ InShort +"\nwith GREET."+"\nDownload GREET\n"+ "https://goo.gl/Sdc4w4");
                     sendIntent.setType("text/plain");
                     startActivity(sendIntent);
                 }
