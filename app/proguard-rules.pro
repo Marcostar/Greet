@@ -17,10 +17,10 @@
 #}
 
 
-   -keepattributes Annotation,SourceFile,LineNumberTable
-   -keep class com.parse.* { *; }
-   -dontwarn com.parse.**
-   -keepclasseswithmembernames class * {native <methods>; }
+  -keepattributes Annotation,SourceFile,LineNumberTable
+  -keep class com.parse.* { *; }
+  -dontwarn com.parse.**
+  -keepclasseswithmembernames class * {native <methods>; }
 
 
   -keep class com.appodeal.** { *; }
@@ -56,7 +56,13 @@
   -dontwarn com.startapp.**
   -dontwarn com.yandex.**
   -dontwarn com.inmobi.**
+  -dontwarn com.mopub.**
+  -dontwarn com.chartboost.**
   -dontwarn com.appodeal.ads.utils.**
+  -dontwarn org.apache.http.**
+  -dontwarn android.net.http.AndroidHttpClient
+  -dontwarn com.google.android.gms.**
+  -dontwarn com.android.volley.toolbox.**
   -keep class android.support.v4.app.Fragment { *; }
   -keep class android.support.v4.app.FragmentActivity { *; }
   -keep class android.support.v4.app.FragmentManager { *; }
@@ -65,7 +71,3 @@
   -keep class android.support.v4.util.LruCache { *; }
   -keep class android.support.v4.view.PagerAdapter { *; }
   -keep class android.support.v4.view.ViewPager { *; }
-
-
-
-
