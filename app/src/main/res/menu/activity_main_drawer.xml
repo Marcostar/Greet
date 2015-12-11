@@ -12,9 +12,7 @@
             android:title="@string/didYouKnow"/>
         <item android:id="@+id/nav_horoscope" android:icon="@mipmap/horoscope"
             android:title="@string/horoscope" />
-
     </group>
-
 
     <item android:title="Advice">
         <menu>

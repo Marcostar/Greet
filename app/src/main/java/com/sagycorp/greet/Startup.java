@@ -104,12 +104,12 @@ public class Startup extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 }
-            })/*.setNegativeButton(R.string.cancle, new DialogInterface.OnClickListener() {
+            }).setNegativeButton(R.string.cancle, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
+                finish();
             }
-        })*/;
+        });
             builder.setCancelable(false);
             builder.create().show();
         }
@@ -119,6 +119,12 @@ public class Startup extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
+        }
+
+        @Override
+        public void onBackPressed()
+        {
+            finish();
         }
     }
 

@@ -25,6 +25,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import com.appodeal.ads.Appodeal;
 import com.parse.ParseAnalytics;
 import com.sagycorp.greet.Fragments.Facts;
 import com.sagycorp.greet.Fragments.HoroScope;
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity
     private NavigationView navigationView;
     private Fragment fragment;
     private String sign, title;
+    private static final String appKey = "7efbcd7b61614667cb4d65ddcf9a026a4c044e085755707c";
 
 
     private boolean viewIsAtHome;
@@ -58,6 +60,12 @@ public class MainActivity extends AppCompatActivity
         ParseAnalytics.trackAppOpenedInBackground(getIntent());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Ads
+        Appodeal.setBannerViewId(R.id.appodealBannerView);
+        Appodeal.initialize(this, appKey, Appodeal.BANNER);
+        Appodeal.show(this, Appodeal.BANNER_VIEW);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         sharedPreferences = getSharedPreferences(Startup.PreferenceSETTINGS, Context.MODE_PRIVATE);
