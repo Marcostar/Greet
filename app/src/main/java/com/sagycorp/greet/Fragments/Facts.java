@@ -64,7 +64,7 @@ public class Facts extends Fragment {
 
             case R.id.Share:
                 Intent sendIntent = new Intent(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, "Fact: "+DidYouKnow + "\nvia GREET."+"\nDownload GREET\n"+ "https://goo.gl/Sdc4w4");
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "Fact: "+DidYouKnow + "\nvia Greet."+"\nDownload Greet\n"+ "https://goo.gl/Sdc4w4");
                 sendIntent.setType("text/plain");
                 startActivity(sendIntent);
                 return true;

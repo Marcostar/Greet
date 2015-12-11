@@ -169,7 +169,7 @@ public class HoroScope extends Fragment {
                 if (Today_Horoscope!= null && !Today_Horoscope.isEmpty())
                 {
                     Intent sendIntent = new Intent(Intent.ACTION_SEND);
-                    sendIntent.putExtra(Intent.EXTRA_TEXT,  "My today's horoscope\n"+ sharedPreferences.getString(Startup.HoroSign,"Aries")+":\n"+Today_Horoscope + "\nvia GREET"+"\nDownload GREET\n"+ "https://goo.gl/Sdc4w4");
+                    sendIntent.putExtra(Intent.EXTRA_TEXT,  "My today's horoscope\n"+ sharedPreferences.getString(Startup.HoroSign,"Aries")+":\n"+Today_Horoscope + "\nvia Greet"+"\nDownload Greet\n"+ "https://goo.gl/Sdc4w4");
                     sendIntent.setType("text/plain");
                     startActivity(sendIntent);
                 }
