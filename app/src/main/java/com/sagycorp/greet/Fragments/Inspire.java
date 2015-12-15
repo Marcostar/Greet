@@ -32,7 +32,7 @@ public class Inspire extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent Email = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto","sagarghadge2403.com",null));
+                Intent Email = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto","stories@sagycorp.com",null));
                 Email.putExtra(Intent.EXTRA_SUBJECT,"My Story");
                 Email.putExtra(Intent.EXTRA_TEXT,"***Do not forget to tell your NAME and your COUNTRY (So We can put your name along with your story.)***");
                 startActivity(Intent.createChooser(Email, "Share Your Story with :"));

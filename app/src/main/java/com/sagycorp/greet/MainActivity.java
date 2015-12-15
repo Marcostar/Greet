@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity
 
         if(id == R.id.suggestions)
         {
-            Intent Email = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "sagarghadge2403@gmail.com", null));
+            Intent Email = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "suggestions@sagycorp.com", null));
             Email.putExtra(Intent.EXTRA_SUBJECT,"Advice for making this better app");
             Email.putExtra(Intent.EXTRA_TEXT, "**Your Demands/Suggestions here**");
             startActivity(Intent.createChooser(Email, "Share Your Advice with :"));
@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.tellFriend)
         {
             Intent sendIntent = new Intent(Intent.ACTION_SEND);
-            sendIntent.putExtra(Intent.EXTRA_TEXT, "I found very interesting app!!\nGREET! Your storyteller, trip consultant, an astrological advisor and much more."+"\nDownload GREET\n"+ "https://goo.gl/Sdc4w4");
+            sendIntent.putExtra(Intent.EXTRA_TEXT, "I found very interesting app!!\nGreet! Your storyteller, trip consultant, an astrological advisor and much more."+"\nDownload Greet\n"+ "https://goo.gl/Sdc4w4");
             sendIntent.setType("text/plain");
             startActivity(sendIntent);
             return true;

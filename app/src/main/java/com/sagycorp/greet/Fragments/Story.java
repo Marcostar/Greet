@@ -173,7 +173,7 @@ public class Story extends Fragment {
                 if (InShort!= null && !InShort.isEmpty())
                 {
                     Intent sendIntent = new Intent(Intent.ACTION_SEND);
-                    sendIntent.putExtra(Intent.EXTRA_TEXT, "Read\n"+ InShort +"\nwith Greet."+"\nDownload Greet\n"+ "https://goo.gl/Sdc4w4");
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, "Read\n"+ InShort +"\nwith Greet."+"\nhttps://goo.gl/Sdc4w4");
                     sendIntent.setType("text/plain");
                     startActivity(sendIntent);
                 }
