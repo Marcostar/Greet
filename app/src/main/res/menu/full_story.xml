@@ -1,7 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".MainActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".FullStory">
 
+    <item android:id="@+id/Refresh" android:title="Refresh"
+        app:showAsAction="never"
+        android:orderInCategory="1"/>
+    <item android:id="@+id/Share" android:title="Share"
+        android:icon="@mipmap/ic_action_share"
+        app:showAsAction="always"/>
     <item android:id="@+id/change_horoscope"
         android:title="@string/chanege_horoscope"
         android:orderInCategory="10"/>
@@ -15,8 +23,4 @@
         android:title="@string/rate_app"
         android:orderInCategory="13"/>
 
-    <!--<item android:id="@+id/action_settings"
-        android:title="@string/action_settings"
-        android:orderInCategory="100"
-        app:showAsAction="never" />-->
 </menu>

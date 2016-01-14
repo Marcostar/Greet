@@ -12,5 +12,6 @@
 
     <color name="toolbar">#DD4814</color>
     <color name="story_text">#081F2C</color>
+    <color name="archive_story_index">#169CEE</color>
 
 </resources>

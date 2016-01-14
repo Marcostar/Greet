@@ -36,6 +36,7 @@
 
     <!--Layout Messages-->
     <string name="loading_story">Opening Story Of The Day&#8230;</string>
+    <string name="loading_story_archive">Grabbing every story from archive&#8230;</string>
     <string name="loading_places">The captain announced that we are about to land&#8230;</string>
     <string name="loading_horoscope">Today\'s Horoscope For You&#8230; </string>
     <string name="loading_error">Oops! Check your internet connection. Pull down screen to refresh.</string>
@@ -56,5 +57,6 @@
     <string name="DidYouKnow">Elephant is the only mammal that can\'t jump.</string>
     <string name="Quotes">Innovation distinguishes between a leader and a follower.</string>
     <string name="Author">Steve Jobs</string>
+    <string name="title_activity_full_story">Story</string>
 
 </resources>
