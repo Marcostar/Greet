@@ -58,5 +58,6 @@
     <string name="Quotes">Innovation distinguishes between a leader and a follower.</string>
     <string name="Author">Steve Jobs</string>
     <string name="title_activity_full_story">Story</string>
+    <string name="title_activity_full_place_info">Places</string>
 
 </resources>
