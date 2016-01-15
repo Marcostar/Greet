@@ -76,7 +76,7 @@ public class Story extends Fragment {
         StoryViewLayout = (ScrollView) rootView.findViewById(R.id.PlaceView);
         /*StoryViewLayout.setVisibility(View.GONE);*/
         LoadingLayout = (LinearLayout) rootView.findViewById(R.id.Loading);
-        LoadingLayout.setVisibility(View.VISIBLE);
+        /*LoadingLayout.setVisibility(View.VISIBLE);*/
         ErrorLayout = (LinearLayout) rootView.findViewById(R.id.Error);
         RefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefresh);
         imageLoader = MySingleton.getInstance(this.getActivity()).getImageLoader();
@@ -96,7 +96,7 @@ public class Story extends Fragment {
         JsonObjectRequest request = new JsonObjectRequest(url+Today, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                LoadingLayout.setVisibility(View.GONE);
+                /*LoadingLayout.setVisibility(View.GONE);*/
                 StoryViewLayout.setVisibility(View.VISIBLE);
                 try {
                     InShort = response.getString("InShort");

@@ -66,7 +66,7 @@ public class FullPlaceInfo extends AppCompatActivity {
         PlacesDescription = (TextView) findViewById(R.id.PlaceDescription);
         PlaceViewLayout = (ScrollView) findViewById(R.id.PlaceView);
         LoadingLayout = (LinearLayout) findViewById(R.id.Loading);
-        LoadingLayout.setVisibility(View.VISIBLE);
+        /*LoadingLayout.setVisibility(View.VISIBLE);*/
         ErrorLayout = (LinearLayout) findViewById(R.id.Error);
         RefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefresh);
         imageLoader = MySingleton.getInstance(this).getImageLoader();
@@ -95,7 +95,7 @@ public class FullPlaceInfo extends AppCompatActivity {
         JsonObjectRequest request = new JsonObjectRequest(URL, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                LoadingLayout.setVisibility(View.GONE);
+                /*LoadingLayout.setVisibility(View.GONE);*/
                 PlaceViewLayout.setVisibility(View.VISIBLE);
                 try {
                     Destination = response.getString("Title");
@@ -116,7 +116,7 @@ public class FullPlaceInfo extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 RefreshLayout.setRefreshing(false);
-                LoadingLayout.setVisibility(View.GONE);
+                /*LoadingLayout.setVisibility(View.GONE);*/
                 ErrorLayout.setVisibility(View.VISIBLE);
                 //System.out.println(error);
             }

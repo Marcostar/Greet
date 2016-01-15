@@ -73,7 +73,7 @@ public class Places extends Fragment {
         PlacesViewLayout = (ScrollView) rootView.findViewById(R.id.PlaceView);
         /*PlacesViewLayout.setVisibility(View.GONE);*/
         LoadingLayout = (LinearLayout) rootView.findViewById(R.id.Loading);
-        LoadingLayout.setVisibility(View.VISIBLE);
+        /*LoadingLayout.setVisibility(View.VISIBLE);*/
         ErrorLayout = (LinearLayout) rootView.findViewById(R.id.Error);
         RefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefresh);
         imageLoader = MySingleton.getInstance(this.getActivity()).getImageLoader();
@@ -94,7 +94,7 @@ public class Places extends Fragment {
         JsonObjectRequest request = new JsonObjectRequest(url+Today, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                LoadingLayout.setVisibility(View.GONE);
+               /* LoadingLayout.setVisibility(View.GONE);*/
                 PlacesViewLayout.setVisibility(View.VISIBLE);
                 try {
                     Destination = response.getString("Title");
@@ -115,7 +115,7 @@ public class Places extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 RefreshLayout.setRefreshing(false);
-                LoadingLayout.setVisibility(View.GONE);
+               /* LoadingLayout.setVisibility(View.GONE);*/
                 ErrorLayout.setVisibility(View.VISIBLE);
                 //System.out.println(error);
             }

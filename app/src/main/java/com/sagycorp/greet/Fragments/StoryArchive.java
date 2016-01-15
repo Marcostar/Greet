@@ -67,7 +67,7 @@ public class StoryArchive extends Fragment {
         layoutManager = new LinearLayoutManager(getActivity());
         StoryArchiveList.setLayoutManager(layoutManager);
 
-        LoadingLayout.setVisibility(View.VISIBLE);
+        /*LoadingLayout.setVisibility(View.VISIBLE);*/
 
         refreshLayout.setColorSchemeResources(
                 R.color.swipe_color_1, R.color.swipe_color_2,
@@ -133,7 +133,7 @@ public class StoryArchive extends Fragment {
                     e.printStackTrace();
                 }
 
-                LoadingLayout.setVisibility(View.GONE);
+                /*LoadingLayout.setVisibility(View.GONE);*/
                 storyListAdapter.notifyDataSetChanged();
 
             }
@@ -141,7 +141,7 @@ public class StoryArchive extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 refreshLayout.setRefreshing(false);
-                LoadingLayout.setVisibility(View.GONE);
+                /*LoadingLayout.setVisibility(View.GONE);*/
                 ErrorLayout.setVisibility(View.VISIBLE);
             }
         });
