@@ -21,6 +21,10 @@ public class Startup extends AppCompatActivity {
     public static final String Quotes = "quotes";
     public static final String Author = "name";
     public static final String IsHoroSet = "no";
+    public static final String FactDate = "factDate";
+    public static final String FactPermanentNo = "factPermanent";
+    public static final String QuoteDate = "31Dec1992";
+    public static final String QuotePermanentNo = "quotePermanent";
     private String Horoscopes[],sign;
     public static final String HoroSign = "sign";
 

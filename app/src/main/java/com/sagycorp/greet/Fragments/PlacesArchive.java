@@ -68,7 +68,7 @@ public class PlacesArchive extends Fragment {
         layoutManager = new LinearLayoutManager(getActivity());
         PlacesArchiveList.setLayoutManager(layoutManager);
 
-        /*LoadingLayout.setVisibility(View.VISIBLE);*/
+        LoadingLayout.setVisibility(View.VISIBLE);
 
         refreshLayout.setColorSchemeResources(
                 R.color.swipe_color_1, R.color.swipe_color_2,
@@ -130,7 +130,7 @@ public class PlacesArchive extends Fragment {
                     e.printStackTrace();
                 }
 
-                /*LoadingLayout.setVisibility(View.GONE);*/
+                LoadingLayout.setVisibility(View.GONE);
                 PlacesListAdapter.notifyDataSetChanged();
 
             }
@@ -138,7 +138,7 @@ public class PlacesArchive extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 refreshLayout.setRefreshing(false);
-                /*LoadingLayout.setVisibility(View.GONE);*/
+                LoadingLayout.setVisibility(View.GONE);
                 ErrorLayout.setVisibility(View.VISIBLE);
             }
         });

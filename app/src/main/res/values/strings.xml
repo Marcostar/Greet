@@ -38,6 +38,7 @@
     <string name="loading_story">Opening Story Of The Day&#8230;</string>
     <string name="loading_story_archive">Grabbing every story from archive&#8230;</string>
     <string name="loading_places">The captain announced that we are about to land&#8230;</string>
+    <string name="loading_places_archive">Rescheduling flight tickets&#8230;</string>
     <string name="loading_horoscope">Today\'s Horoscope For You&#8230; </string>
     <string name="loading_error">Oops! Check your internet connection. Pull down screen to refresh.</string>
 

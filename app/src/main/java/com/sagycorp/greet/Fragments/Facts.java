@@ -4,6 +4,7 @@ package com.sagycorp.greet.Fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,8 +13,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.sagycorp.greet.Helper.ArchiveHelper;
+import com.sagycorp.greet.MainActivity;
 import com.sagycorp.greet.R;
 import com.sagycorp.greet.Startup;
 
@@ -23,8 +27,13 @@ import com.sagycorp.greet.Startup;
 public class Facts extends Fragment {
 
     SharedPreferences sharedPreferences;
-    private TextView factView;
-    private String DidYouKnow;
+    SharedPreferences.Editor editor;
+    private TextView factView, factNo;
+    private Integer factPermanentNo, factTempNo;
+    private String DidYouKnow, FactNo;
+    private MainActivity activity = new MainActivity();
+    private ArchiveHelper helper;
+    private ImageButton previousArrow, nextArrow;
 
     public Facts() {
         // Required empty public constructor
@@ -44,10 +53,133 @@ public class Facts extends Fragment {
                              Bundle savedInstanceState) {
 
         sharedPreferences = getActivity().getSharedPreferences(Startup.PreferenceSETTINGS, Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        helper = new ArchiveHelper(getActivity());
         View rootView = inflater.inflate(R.layout.fragment_facts, container, false);
+        previousArrow = (ImageButton) rootView.findViewById(R.id.previous);
+        nextArrow = (ImageButton) rootView.findViewById(R.id.next);
         factView = (TextView) rootView.findViewById(R.id.DidYouKnow);
-        DidYouKnow = sharedPreferences.getString(Startup.DidYouKnow, getString(R.string.DidYouKnow));
-        factView.setText(DidYouKnow);
+        factNo = (TextView) rootView.findViewById(R.id.factNo);
+        factPermanentNo = sharedPreferences.getInt(Startup.FactPermanentNo, 0);
+        String tmpDate = sharedPreferences.getString(Startup.FactDate, "24Mar1992");
+
+
+        //Get Data from database
+        if (!tmpDate.equals(activity.TodayDate()))
+        {
+            factPermanentNo = factPermanentNo + 1;
+            Cursor cursor = helper.getFact(factPermanentNo);
+            try
+            {
+                if (cursor.getCount()>0)
+                {
+                    cursor.moveToFirst();
+                    DidYouKnow = cursor.getString(cursor.getColumnIndex("fact"));
+                    FactNo = cursor.getString(cursor.getColumnIndex("_id"));
+                    FactNo = "#"+FactNo;
+                }
+                factView.setText(DidYouKnow);
+                factNo.setText(FactNo);
+                editor.putString(Startup.FactDate,activity.TodayDate()).apply();
+                editor.putInt(Startup.FactPermanentNo,factPermanentNo).apply();
+            }
+            finally {
+                cursor.close();
+            }
+
+        }
+        else if(tmpDate.equals(activity.TodayDate()))
+        {
+            Cursor cursor = helper.getFact(factPermanentNo);
+            try
+            {
+                if (cursor.getCount()>0)
+                {
+                    cursor.moveToFirst();
+                    DidYouKnow = cursor.getString(cursor.getColumnIndex("fact"));
+                    FactNo = cursor.getString(cursor.getColumnIndex("_id"));
+                    FactNo = "#"+FactNo;
+                }
+                factView.setText(DidYouKnow);
+                factNo.setText(FactNo);
+            }
+            finally {
+                cursor.close();
+            }
+
+        }
+
+        if (factPermanentNo <= 1)
+        {
+            previousArrow.setVisibility(View.GONE);
+        }
+
+        factTempNo = sharedPreferences.getInt(Startup.FactPermanentNo,0);
+        previousArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                factTempNo = factTempNo - 1;
+                Cursor cursor = helper.getFact(factTempNo);
+                try
+                {
+                    if (cursor.getCount()>0)
+                    {
+                        cursor.moveToFirst();
+                        DidYouKnow = cursor.getString(cursor.getColumnIndex("fact"));
+                        FactNo = cursor.getString(cursor.getColumnIndex("_id"));
+                        FactNo = "#"+FactNo;
+                    }
+                    factView.setText(DidYouKnow);
+                    factNo.setText(FactNo);
+                    if (factTempNo <= 1)
+                    {
+                        previousArrow.setVisibility(View.GONE);
+                    }
+                    if (!nextArrow.isShown()) {
+                        nextArrow.setVisibility(View.VISIBLE);
+                    }
+                }
+                finally {
+                    cursor.close();
+                }
+
+            }
+        });
+
+        nextArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                factTempNo = factTempNo + 1;
+
+                Cursor cursor = helper.getFact(factTempNo);
+                try
+                {
+                    if (cursor.getCount()>0)
+                    {
+                        cursor.moveToFirst();
+                        DidYouKnow = cursor.getString(cursor.getColumnIndex("fact"));
+                        FactNo = cursor.getString(cursor.getColumnIndex("_id"));
+                        FactNo = "#"+FactNo;
+                    }
+                    factView.setText(DidYouKnow);
+                    factNo.setText(FactNo);
+                    if (factTempNo > 1)
+                    {
+                        previousArrow.setVisibility(View.VISIBLE);
+                    }
+
+                    if(factTempNo == 200)
+                    {
+                        nextArrow.setVisibility(View.GONE);
+                    }
+
+                }
+                finally {
+                    cursor.close();
+                }
+
+            }
+        });
         // Inflate the layout for this fragment
         return rootView;
     }
@@ -73,4 +205,9 @@ public class Facts extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        helper.close();
+    }
 }
