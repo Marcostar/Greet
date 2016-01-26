@@ -1,5 +1,7 @@
 package com.sagycorp.greet;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -33,6 +35,7 @@ import com.sagycorp.greet.Fragments.HoroScope;
 import com.sagycorp.greet.Fragments.Inspire;
 import com.sagycorp.greet.Fragments.Quotes;
 import com.sagycorp.greet.Fragments.Stories;
+import com.sagycorp.greet.Helper.NotificationCreator;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -48,6 +51,7 @@ public class MainActivity extends AppCompatActivity
     private NavigationView navigationView;
     private Fragment fragment;
     private String sign, title;
+    private boolean IsNotificationSet = false, CheckNotification;
     private static final String appKey = "7efbcd7b61614667cb4d65ddcf9a026a4c044e085755707c";
 
 
@@ -59,6 +63,23 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         ParseAnalytics.trackAppOpenedInBackground(getIntent());
         super.onCreate(savedInstanceState);
+        sharedPreferences = getSharedPreferences(Startup.PreferenceSETTINGS, Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        CheckNotification = sharedPreferences.getBoolean(Startup.IsNotificationSet,false);
+
+        if (IsNotificationSet == CheckNotification)
+        {
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.HOUR_OF_DAY, 9);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+
+            Intent intent = new Intent(MainActivity.this, NotificationCreator.class);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0,intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            AlarmManager am = (AlarmManager) MainActivity.this.getSystemService(ALARM_SERVICE);
+            am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+            editor.putBoolean(Startup.IsNotificationSet,true).apply();
+        }
         setContentView(R.layout.activity_main);
 
         //Ads

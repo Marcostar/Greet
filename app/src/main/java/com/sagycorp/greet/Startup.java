@@ -17,6 +17,7 @@ public class Startup extends AppCompatActivity {
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
     public static final String PreferenceSETTINGS = "Preferences";
+    public static final String IsNotificationSet = "notification";
     public static final String DidYouKnow = "Didyouknow";
     public static final String Quotes = "quotes";
     public static final String Author = "name";

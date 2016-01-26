@@ -26,6 +26,7 @@
   -keep class com.appodeal.** { *; }
   -keep class com.amazon.** { *; }
   -keep class com.mopub.** { *; }
+  -keep class com.facebook.** { *; }
   -keep class org.nexage.** { *; }
   -keep class com.applovin.** { *; }
   -keep class com.chartboost.** { *; }
@@ -33,10 +34,12 @@
   -keep class com.applifier.** { *; }
   -keep class com.yandex.** { *; }
   -keep class com.inmobi.** { *; }
-  -keep class com.facebook.** { *; }
   -keep class ru.mail.android.mytarget.** { *; }
   -keep class com.google.android.gms.ads.** { *; }
   -keep class com.google.android.gms.common.GooglePlayServicesUtil { *; }
+
+  -keepattributes Signature
+
   -keep class * extends java.util.ListResourceBundle {
     protected Object[][] getContents();
   }
@@ -58,6 +61,10 @@
   -dontwarn com.inmobi.**
   -dontwarn com.mopub.**
   -dontwarn com.chartboost.**
+  -dontwarn com.avocarrot.**
+  -dontwarn com.flurry.**
+  -dontwarn net.pubnative.**
+  -dontwarn org.droidparts.**
   -dontwarn com.appodeal.ads.utils.**
   -dontwarn org.apache.http.**
   -dontwarn android.net.http.AndroidHttpClient

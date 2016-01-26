@@ -8,13 +8,15 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp">
 
         <ImageButton
             android:id="@+id/previous"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@mipmap/ic_action_arrowleft"/>
+            android:background="@drawable/arrow_left"/>
 
         <TextView
             android:id="@+id/quoteNo"
@@ -31,9 +33,10 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentRight="true"
-            android:background="@mipmap/ic_action_arrowright"/>
+            android:background="@drawable/arrow_right"/>
 
     </RelativeLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">

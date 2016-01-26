@@ -42,6 +42,7 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_gravity="center"
+            android:padding="12sp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -51,7 +52,6 @@
                 android:padding="4dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Aries"
                 android:textStyle="italic"
                 android:textColor="@android:color/background_light"
                 android:textSize="24sp"/>
@@ -62,19 +62,17 @@
                 android:padding="4dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="March 24, 1992"
                 android:textSize="16sp"
                 android:textColor="@android:color/background_light"/>
 
             <TextView
                 android:id="@+id/signQuote"
-                android:gravity="center"
-                android:padding="4dp"
+                android:gravity="fill_horizontal"
+                android:padding="4sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
-                android:textColor="@android:color/background_light"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris lectus mi, finibus ut ligula eu, faucibus tincidunt leo. Ut mattis porttitor felis malesuada rhoncus. Nulla laoreet euismod felis. Mauris et consequat sem, quis accumsan lorem. Ut ac feugiat ex. Integer vitae urna non orci porta ultricies sed ut magna. Mauris vitae felis lobortis, consectetur massa nec, placerat ex. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque laoreet ullamcorper porta. Praesent ac mauris lobortis nisl dapibus sollicitudin. Vivamus accumsan, augue sed fermentum vehicula, massa orci sodales leo, eget faucibus lorem velit quis enim. Donec tempor est quis tristique tincidunt. Vestibulum at ullamcorper lorem. Quisque id dolor at arcu consectetur porttitor."/>
+                android:textColor="@android:color/background_light" />
 
         </LinearLayout>
 
