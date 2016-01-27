@@ -28,7 +28,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.appodeal.ads.Appodeal;
-import com.parse.ParseAnalytics;
 import com.sagycorp.greet.Fragments.AllPlaces;
 import com.sagycorp.greet.Fragments.Facts;
 import com.sagycorp.greet.Fragments.HoroScope;
@@ -61,7 +60,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        ParseAnalytics.trackAppOpenedInBackground(getIntent());
         super.onCreate(savedInstanceState);
         sharedPreferences = getSharedPreferences(Startup.PreferenceSETTINGS, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();

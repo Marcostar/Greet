@@ -40,7 +40,7 @@ public class PlacesArchive extends Fragment {
     private PlacesListAdapter PlacesListAdapter;
     private SwipeRefreshLayout refreshLayout;
     private LinearLayout LoadingLayout, ErrorLayout;
-    private final String url="http://regal-river-115009.appspot.com/ArchiveCalls/PlacesResponse";
+    private final String url="http://rare-basis-120312.appspot.com/ArchiveCalls/PlacesResponse";
     private Boolean visiblity = false;
 
 

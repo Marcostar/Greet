@@ -21,8 +21,11 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.sagycorp.greet.MainActivity;
 import com.sagycorp.greet.MySingleton;
+import com.sagycorp.greet.PushStart;
 import com.sagycorp.greet.R;
 import com.sagycorp.greet.Startup;
 
@@ -41,9 +44,10 @@ public class HoroScope extends Fragment {
     SharedPreferences sharedPreferences ;
     private Boolean visiblity = false;
     private TextView signName, signDate, signQuote;
-    private String url = "https://regal-river-115009.appspot.com/Horoscope/";
+    private String url = "https://rare-basis-120312.appspot.com/Horoscope/";
     private String Sign, Today, Today_Horoscope;
     private MainActivity activity = new MainActivity();
+    private Tracker mTracker;
 
     public HoroScope() {
         // Required empty public constructor
@@ -53,6 +57,12 @@ public class HoroScope extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        String Name = "Horoscope";
+        // Obtain the shared Tracker instance.
+        PushStart application = (PushStart) getActivity().getApplication();
+        mTracker = application.getDefaultTracker();
+        mTracker.setScreenName(Name);
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
         // Notify the system to allow an options menu for this fragment.
         setHasOptionsMenu(true);
     }
@@ -168,6 +178,11 @@ public class HoroScope extends Fragment {
 
                 if (Today_Horoscope!= null && !Today_Horoscope.isEmpty())
                 {
+                    mTracker.send(new HitBuilders.EventBuilder()
+                            .setCategory("Action")
+                            .setAction("Share").setLabel("Horoscope")
+                            .build());
+
                     Intent sendIntent = new Intent(Intent.ACTION_SEND);
                     sendIntent.putExtra(Intent.EXTRA_TEXT,  "My today's horoscope\n"+ sharedPreferences.getString(Startup.HoroSign,"Aries")+":\n"+Today_Horoscope + "\nvia Greet."+"\nRead yours.\n"+ "https://goo.gl/Sdc4w4");
                     sendIntent.setType("text/plain");

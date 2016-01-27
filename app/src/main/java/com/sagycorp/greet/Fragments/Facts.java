@@ -16,8 +16,11 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.sagycorp.greet.Helper.ArchiveHelper;
 import com.sagycorp.greet.MainActivity;
+import com.sagycorp.greet.PushStart;
 import com.sagycorp.greet.R;
 import com.sagycorp.greet.Startup;
 
@@ -34,6 +37,7 @@ public class Facts extends Fragment {
     private MainActivity activity = new MainActivity();
     private ArchiveHelper helper;
     private ImageButton previousArrow, nextArrow;
+    private Tracker mTracker;
 
     public Facts() {
         // Required empty public constructor
@@ -42,6 +46,12 @@ public class Facts extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        String Name = "Facts";
+        // Obtain the shared Tracker instance.
+        PushStart application = (PushStart) getActivity().getApplication();
+        mTracker = application.getDefaultTracker();
+        mTracker.setScreenName(Name);
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
 
         // Notify the system to allow an options menu for this fragment.
         setHasOptionsMenu(true);
@@ -195,6 +205,12 @@ public class Facts extends Fragment {
         switch (item.getItemId()) {
 
             case R.id.Share:
+
+                mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("Action")
+                        .setAction("Share").setLabel("ArchiveStory")
+                        .build());
+
                 Intent sendIntent = new Intent(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_TEXT, "Fact: "+DidYouKnow + "\nvia Greet."+"\nhttps://goo.gl/Sdc4w4");
                 sendIntent.setType("text/plain");

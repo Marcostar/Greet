@@ -23,8 +23,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.NetworkImageView;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.sagycorp.greet.MainActivity;
 import com.sagycorp.greet.MySingleton;
+import com.sagycorp.greet.PushStart;
 import com.sagycorp.greet.R;
 import com.sagycorp.greet.Startup;
 
@@ -39,7 +42,7 @@ public class Places extends Fragment {
     private NetworkImageView PlaceImage;
     private String Today, Destination;
     private TextView PlaceTitle, PlaceDescription;
-    private String url = "https://regal-river-115009.appspot.com/Places/";
+    private String url = "https://rare-basis-120312.appspot.com/Places/";
     private ImageLoader imageLoader;
     private ScrollView PlacesViewLayout;
     private LinearLayout LoadingLayout, ErrorLayout;
@@ -48,6 +51,7 @@ public class Places extends Fragment {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     private MainActivity activity = new MainActivity();
+    private Tracker mTracker;
 
     public Places() {
         // Required empty public constructor
@@ -57,6 +61,12 @@ public class Places extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Notify the system to allow an options menu for this fragment.
+        String Name = "SinglePlace";
+        // Obtain the shared Tracker instance.
+        PushStart application = (PushStart) getActivity().getApplication();
+        mTracker = application.getDefaultTracker();
+        mTracker.setScreenName(Name);
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
         setHasOptionsMenu(true);
     }
 
@@ -169,6 +179,11 @@ public class Places extends Fragment {
 
                 if (Destination!= null && !Destination.isEmpty())
                 {
+                    mTracker.send(new HitBuilders.EventBuilder()
+                            .setCategory("Action")
+                            .setAction("Share").setLabel("SinglePlace")
+                            .build());
+
                     Intent sendIntent = new Intent(Intent.ACTION_SEND);
                     sendIntent.putExtra(Intent.EXTRA_TEXT, "Visit Scenic\n"+ Destination + "\nvia Greet."+"\nhttps://goo.gl/Sdc4w4");
                     sendIntent.setType("text/plain");

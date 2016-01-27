@@ -1,0 +1,45 @@
+{
+  "project_info": {
+    "project_id": "greet-ca3ed",
+    "project_number": "865134451468",
+    "name": "Greet"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:865134451468:android:e70f183f4c86c881",
+        "client_id": "android:com.sagycorp.greet",
+        "client_type": 1,
+        "android_client_info": {
+          "package_name": "com.sagycorp.greet"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [],
+      "services": {
+        "analytics_service": {
+          "status": 2,
+          "analytics_property": {
+            "tracking_id": "UA-72986483-1"
+          }
+        },
+        "cloud_messaging_service": {
+          "status": 1,
+          "apns_config": []
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "google_signin_service": {
+          "status": 1
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "client_info": [],
+  "ARTIFACT_VERSION": "1"
+}

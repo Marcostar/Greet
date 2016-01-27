@@ -23,8 +23,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.NetworkImageView;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.sagycorp.greet.MainActivity;
 import com.sagycorp.greet.MySingleton;
+import com.sagycorp.greet.PushStart;
 import com.sagycorp.greet.R;
 import com.sagycorp.greet.Startup;
 
@@ -39,7 +42,7 @@ public class Story extends Fragment {
     private NetworkImageView StoryImage;
     private TextView StoryTitle, StoryDescription;
     private String Today, InShort;
-    private String url = "https://regal-river-115009.appspot.com/Stories/";
+    private String url = "https://rare-basis-120312.appspot.com/Stories/";
     private ImageLoader imageLoader;
     private ScrollView StoryViewLayout;
     private LinearLayout LoadingLayout, ErrorLayout;
@@ -48,7 +51,7 @@ public class Story extends Fragment {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     private MainActivity activity = new MainActivity();
-
+    private Tracker mTracker;
     public Story() {
         // Required empty public constructor
     }
@@ -57,6 +60,12 @@ public class Story extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        String Name = "SingleStory";
+        // Obtain the shared Tracker instance.
+        PushStart application = (PushStart) getActivity().getApplication();
+        mTracker = application.getDefaultTracker();
+        mTracker.setScreenName(Name);
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
         // Notify the system to allow an options menu for this fragment.
         setHasOptionsMenu(true);
     }
@@ -172,6 +181,11 @@ public class Story extends Fragment {
 
                 if (InShort!= null && !InShort.isEmpty())
                 {
+                    mTracker.send(new HitBuilders.EventBuilder()
+                            .setCategory("Action")
+                            .setAction("Share").setLabel("SingleStory")
+                            .build());
+
                     Intent sendIntent = new Intent(Intent.ACTION_SEND);
                     sendIntent.putExtra(Intent.EXTRA_TEXT, "Read\n"+ InShort +"\nwith Greet."+"\nhttps://goo.gl/Sdc4w4");
                     sendIntent.setType("text/plain");

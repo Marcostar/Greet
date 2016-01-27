@@ -30,6 +30,8 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.NetworkImageView;
 import com.appodeal.ads.Appodeal;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,14 +50,24 @@ public class FullStory extends AppCompatActivity {
     private Boolean visiblity = false;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+    private Tracker mTracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_full_story);
 
         //ads
         Appodeal.show(this, Appodeal.BANNER_VIEW);
+
+        String Name = "ArchiveStory";
+        // Obtain the shared Tracker instance.
+        PushStart application = (PushStart) getApplication();
+        mTracker = application.getDefaultTracker();
+        mTracker.setScreenName(Name);
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -163,8 +175,14 @@ public class FullStory extends AppCompatActivity {
 
         if (id == R.id.Share)
         {
+
             if (InShort!= null && !InShort.isEmpty())
             {
+                mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("Action")
+                        .setAction("Share").setLabel("ArchiveStory")
+                        .build());
+
                 Intent sendIntent = new Intent(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_TEXT, "Read\n"+ InShort +"\nwith Greet."+"\nhttps://goo.gl/Sdc4w4");
                 sendIntent.setType("text/plain");
