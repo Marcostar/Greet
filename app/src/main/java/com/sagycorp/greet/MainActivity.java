@@ -8,7 +8,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -19,13 +18,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 
 import com.appodeal.ads.Appodeal;
 import com.sagycorp.greet.Fragments.AllPlaces;
@@ -34,15 +28,18 @@ import com.sagycorp.greet.Fragments.HoroScope;
 import com.sagycorp.greet.Fragments.Inspire;
 import com.sagycorp.greet.Fragments.Quotes;
 import com.sagycorp.greet.Fragments.Stories;
+import com.sagycorp.greet.Fragments.WhyAds;
 import com.sagycorp.greet.Helper.NotificationCreator;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
 
 
     SharedPreferences sharedPreferences ;
@@ -168,105 +165,12 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.tellFriend)
         {
             Intent sendIntent = new Intent(Intent.ACTION_SEND);
-            sendIntent.putExtra(Intent.EXTRA_TEXT, "I found very interesting app!!\nGreet! Your storyteller, trip consultant, an astrological advisor and much more."+"\nDownload Greet\n"+ "https://goo.gl/Sdc4w4");
+            sendIntent.putExtra(Intent.EXTRA_TEXT, "I found very interesting app!!\nGreet! Your storyteller, trip consultant, an astrological advisor and much more."+"\nDownload Greet\n"+ "http://goo.gl/T1AS5u");
             sendIntent.setType("text/plain");
             startActivity(sendIntent);
             return true;
         }
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.change_horoscope) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            LayoutInflater inflater = this.getLayoutInflater();
 
-            View dialogView = inflater.inflate(R.layout.horoscope_selector,null);
-            builder.setView(dialogView);
-            builder.setTitle(R.string.horo_title);
-            Spinner spinner = (Spinner) dialogView.findViewById(R.id.edition_spinner);
-            ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.horoscope_selector, android.R.layout.simple_spinner_item);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spinner.setAdapter(adapter);
-
-            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    Horoscopes = getResources().getStringArray(R.array.horoscope_selector);
-
-                    int positionID = position;
-                    switch (positionID) {
-                        case 0:
-                            sign = "Aries";
-                            break;
-                        case 1:
-                            sign = "Taurus";
-                            break;
-                        case 2:
-                            sign = "Gemini";
-                            break;
-                        case 3:
-                            sign = "Cancer";
-                            break;
-                        case 4:
-                            sign = "Leo";
-                            break;
-                        case 5:
-                            sign = "Virgo";
-                            break;
-                        case 6:
-                            sign = "Libra";
-                            break;
-                        case 7:
-                            sign = "Scorpio";
-                            break;
-                        case 8:
-                            sign = "Sagittarius";
-                            break;
-                        case 9:
-                            sign = "Capricorn";
-                            break;
-                        case 10:
-                            sign = "Aquarius";
-                            break;
-                        case 11:
-                            sign = "Pisces";
-                            break;
-                    }
-
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-
-                }
-            });
-            builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    editor.putString(Startup.HoroSign, sign);
-                    editor.putBoolean(Startup.IsHoroSet, false);
-                    editor.apply();
-                    if (Build.VERSION.SDK_INT >= 11) {
-                        recreate();
-                    } else {
-                        Intent intent = getIntent();
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                        finish();
-                        overridePendingTransition(0, 0);
-                        startActivity(intent);
-                        overridePendingTransition(0, 0);
-                    }
-                }
-            }).setNegativeButton(R.string.cancle, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
-            /*builder.setCancelable(false);*/
-            builder.create().show();
-            return true;
-
-
-        }
         if(id == R.id.rate_app) {
 
             Uri uri = Uri.parse("market://details?id=" + getApplicationContext().getPackageName());
@@ -338,12 +242,18 @@ public class MainActivity extends AppCompatActivity
                 viewIsAtHome = false;
                 break;
 
+            case R.id.nav_whyAds:
+                fragment = new WhyAds();
+                title = getString(R.string.whyAds);
+                viewIsAtHome = false;
+                break;
+
         }
 
         if (fragment != null)
         {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.content_frame,fragment);
+            ft.replace(R.id.content_frame, fragment);
             ft.addToBackStack(null);
             ft.commit();
         }
@@ -360,24 +270,20 @@ public class MainActivity extends AppCompatActivity
 
     public String Stamp()
     {
-        DateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy");
+        DateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy", Locale.US);
 
         Date today = Calendar.getInstance().getTime();
 
-        String timeStamp = dateFormat.format(today);
-
-        return timeStamp;
+        return dateFormat.format(today);
     }
 
     public String TodayDate()
     {
-        DateFormat dateFormat = new SimpleDateFormat("ddMMMyyyy");
+        DateFormat dateFormat = new SimpleDateFormat("ddMMMyyyy", Locale.US);
 
         Date today = Calendar.getInstance().getTime();
 
-        String timeStamp = dateFormat.format(today);
-
-        return timeStamp;
+        return dateFormat.format(today);
     }
 
 

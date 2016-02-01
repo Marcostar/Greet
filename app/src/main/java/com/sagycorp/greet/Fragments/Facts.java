@@ -212,7 +212,7 @@ public class Facts extends Fragment {
                         .build());
 
                 Intent sendIntent = new Intent(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, "Fact: "+DidYouKnow + "\nvia Greet."+"\nhttps://goo.gl/Sdc4w4");
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "Fact: "+DidYouKnow + "\nvia Greet."+"\n"+"http://goo.gl/T1AS5u");
                 sendIntent.setType("text/plain");
                 startActivity(sendIntent);
                 return true;
@@ -221,9 +221,10 @@ public class Facts extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onDestroyView() {
+        super.onDestroyView();
         helper.close();
     }
 }

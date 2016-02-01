@@ -1,5 +1,6 @@
 package com.sagycorp.greet.Helper;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -24,14 +25,13 @@ public class NotificationCreator extends BroadcastReceiver {
     Uri uri;
     private String notification[] = {"Read today's astonishing story.",
                             "Read surprising fact from Black Box.",
-                            "Your horoscope is quite surprising today.",
+                            "Your horoscope is quite interesting today.",
                             "Get inspired today with a great thought.",
                             "Visit this scenic place inside."};
-    private Integer randomNumber;
     private Random random = new Random();
     @Override
     public void onReceive(Context context, Intent intent) {
-        randomNumber = random.nextInt(5);
+        Integer randomNumber = random.nextInt(5);
         nm = (NotificationManager) context
                 .getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -42,17 +42,36 @@ public class NotificationCreator extends BroadcastReceiver {
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 
-        NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(context)
-                        .setSmallIcon(R.mipmap.ic_launcher)
-                        .setContentTitle("Greet")
-                        .setContentText(notification[randomNumber])
-                        .setContentIntent(pendingIntent)
-                        .setVibrate(new long[]{1000, 1000, 1000})
-                        .setLights(Color.BLUE,3000,3000)
-                        .setSound(uri)
-                        .setAutoCancel(true);
 
-        nm.notify(0, mBuilder.build());
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN)
+        {
+            Notification.Builder mBuilder = new Notification.Builder(context)
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setContentTitle("Greet")
+                    .setContentText(notification[randomNumber])
+                    .setContentIntent(pendingIntent)
+                    .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
+                    .setLights(Color.BLUE, 3000, 3000)
+                    .setSound(uri)
+                    .setAutoCancel(true);
+
+            nm.notify(24392, mBuilder.build());
+        }
+        else if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.JELLY_BEAN)
+        {
+            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setContentTitle("Greet")
+                    .setContentText(notification[randomNumber])
+                    .setContentIntent(pendingIntent)
+                    .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
+                    .setLights(Color.BLUE, 3000, 3000)
+                    .setSound(uri)
+                    .setAutoCancel(true);
+
+            nm.notify(24392, mBuilder.build());
+        }
+
     }
 }

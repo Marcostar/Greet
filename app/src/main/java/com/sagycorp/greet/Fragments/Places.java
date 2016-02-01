@@ -42,7 +42,7 @@ public class Places extends Fragment {
     private NetworkImageView PlaceImage;
     private String Today, Destination;
     private TextView PlaceTitle, PlaceDescription;
-    private String url = "https://rare-basis-120312.appspot.com/Places/";
+    private String url = "https://fd.sagycorp.com/Places/";
     private ImageLoader imageLoader;
     private ScrollView PlacesViewLayout;
     private LinearLayout LoadingLayout, ErrorLayout;
@@ -185,7 +185,7 @@ public class Places extends Fragment {
                             .build());
 
                     Intent sendIntent = new Intent(Intent.ACTION_SEND);
-                    sendIntent.putExtra(Intent.EXTRA_TEXT, "Visit Scenic\n"+ Destination + "\nvia Greet."+"\nhttps://goo.gl/Sdc4w4");
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, "Visit Scenic\n"+ Destination + "\nvia Greet."+"\n"+"http://goo.gl/T1AS5u");
                     sendIntent.setType("text/plain");
                     startActivity(sendIntent);
                 }

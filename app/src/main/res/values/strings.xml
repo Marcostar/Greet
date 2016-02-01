@@ -13,6 +13,7 @@
     <string name="places">Travel Around</string>
     <string name="didYouKnow">Black Box</string>
     <string name="inspire">Tell A Tale</string>
+    <string name="whyAds">Why Ads?</string>
     <string name="tellFriend">Invite Your Friends</string>
     <string name="suggestions">Suggestions/Demands</string>
 
@@ -44,11 +45,12 @@
 
     <!--Settings-->
     <string name="refresh">Refresh</string>
-    <string name="chanege_horoscope">Change Zodiac Sign</string>
+    <string name="change_horoscope">Change Zodiac Sign</string>
     <string name="rate_app">Rate the app</string>
 
     <!--Inspire Text-->
-    <string name="InspireText">If you have a story that can inspire or bring smiles, then share your story to reach everyone.</string>
+    <string name="InspireText">If you have a story that can inspire or bring smiles, then share your story with everyone and get featured in the app.</string>
+    <string name="WhyAdsText">We understand ads can be annoying. Currently ads are there to cover costs of running our infrastructure. We will continue our efforts to resolve this inconvenience as soon as possible. Greet day!</string>
     <string name="shareHere">SHARE HERE!</string>
 
     <!-- TODO: Remove or change this placeholder text -->

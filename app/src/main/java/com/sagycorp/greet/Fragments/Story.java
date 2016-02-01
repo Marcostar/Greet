@@ -42,7 +42,7 @@ public class Story extends Fragment {
     private NetworkImageView StoryImage;
     private TextView StoryTitle, StoryDescription;
     private String Today, InShort;
-    private String url = "https://rare-basis-120312.appspot.com/Stories/";
+    private String url = "https://fd.sagycorp.com/Stories/";
     private ImageLoader imageLoader;
     private ScrollView StoryViewLayout;
     private LinearLayout LoadingLayout, ErrorLayout;
@@ -187,7 +187,7 @@ public class Story extends Fragment {
                             .build());
 
                     Intent sendIntent = new Intent(Intent.ACTION_SEND);
-                    sendIntent.putExtra(Intent.EXTRA_TEXT, "Read\n"+ InShort +"\nwith Greet."+"\nhttps://goo.gl/Sdc4w4");
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, "Read\n"+ InShort +"\nwith Greet."+"\n"+"http://goo.gl/T1AS5u");
                     sendIntent.setType("text/plain");
                     startActivity(sendIntent);
                 }

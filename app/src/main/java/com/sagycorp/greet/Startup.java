@@ -21,6 +21,7 @@ public class Startup extends AppCompatActivity {
     public static final String DidYouKnow = "Didyouknow";
     public static final String Quotes = "quotes";
     public static final String Author = "name";
+    public static final String DrawerItemNumber = "draweritem";
     public static final String IsHoroSet = "no";
     public static final String FactDate = "factDate";
     public static final String FactPermanentNo = "factPermanent";

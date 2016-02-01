@@ -2,9 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity">
 
-    <item android:id="@+id/change_horoscope"
-        android:title="@string/chanege_horoscope"
-        android:orderInCategory="10"/>
     <item android:id="@+id/suggestions"
         android:title="@string/suggestions"
         android:orderInCategory="11"/>
@@ -15,8 +12,4 @@
         android:title="@string/rate_app"
         android:orderInCategory="13"/>
 
-    <!--<item android:id="@+id/action_settings"
-        android:title="@string/action_settings"
-        android:orderInCategory="100"
-        app:showAsAction="never" />-->
 </menu>
