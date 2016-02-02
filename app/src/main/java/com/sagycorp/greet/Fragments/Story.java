@@ -42,7 +42,7 @@ public class Story extends Fragment {
     private NetworkImageView StoryImage;
     private TextView StoryTitle, StoryDescription;
     private String Today, InShort;
-    private String url = "https://fd.sagycorp.com/Stories/";
+    private String url = "http://fd.sagycorp.com/Stories/";
     private ImageLoader imageLoader;
     private ScrollView StoryViewLayout;
     private LinearLayout LoadingLayout, ErrorLayout;

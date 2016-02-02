@@ -12,11 +12,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <TextView
-            android:gravity="center"
+            android:id="@+id/whyAds"
+            android:gravity="fill_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="12sp"
             android:text="@string/WhyAdsText"
+            android:maxLines="10"
+            android:scrollbars="vertical"
             android:textSize="24sp"
             android:textColor="@android:color/background_light"/>
     </LinearLayout>

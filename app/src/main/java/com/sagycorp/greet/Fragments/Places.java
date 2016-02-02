@@ -42,7 +42,7 @@ public class Places extends Fragment {
     private NetworkImageView PlaceImage;
     private String Today, Destination;
     private TextView PlaceTitle, PlaceDescription;
-    private String url = "https://fd.sagycorp.com/Places/";
+    private String url = "http://fd.sagycorp.com/Places/";
     private ImageLoader imageLoader;
     private ScrollView PlacesViewLayout;
     private LinearLayout LoadingLayout, ErrorLayout;

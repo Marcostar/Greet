@@ -14,7 +14,7 @@ android {
         applicationId "com.sagycorp.greet"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 11
+        versionCode 12
         versionName "2.1"
     }
     buildTypes {

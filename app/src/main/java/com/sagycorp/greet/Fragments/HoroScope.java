@@ -50,7 +50,7 @@ public class HoroScope extends Fragment {
     SharedPreferences.Editor editor;
     private Boolean visiblity = false;
     private TextView signName, signDate, signQuote;
-    private String url = "https://fd.sagycorp.com/Horoscope/";
+    private String url = "http://fd.sagycorp.com/Horoscope/";
     private String Today, Today_Horoscope, sign;
     private MainActivity activity = new MainActivity();
     private Tracker mTracker;
