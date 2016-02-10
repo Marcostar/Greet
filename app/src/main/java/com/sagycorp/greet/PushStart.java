@@ -29,7 +29,8 @@ public class PushStart extends Application {
     {
         super.onCreate();
         Parse.initialize(this, "bLwuq7MBXbyuBSrzmuw7Kkl2vUGb6rpszbEsanIO", "LAGZVb7E473d56HjqkczculReTkBZyUcwkcU3JTs");
-        ParsePush.subscribeInBackground("v2");
+        ParsePush.unsubscribeInBackground("v2");
+        ParsePush.subscribeInBackground("v3");
         ParseInstallation.getCurrentInstallation().saveInBackground();
     }
 }

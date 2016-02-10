@@ -1,77 +1,38 @@
 package com.sagycorp.greet.Helper;
 
-import android.app.Notification;
-import android.app.NotificationManager;
+import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.media.RingtoneManager;
-import android.net.Uri;
-import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.WakefulBroadcastReceiver;
 
-import com.sagycorp.greet.MainActivity;
-import com.sagycorp.greet.R;
+import com.sagycorp.greet.Services.AlarmService;
 
-import java.util.Random;
+import java.util.Calendar;
 
 /**
  * Created by Dzeko on 1/26/2016.
  */
-public class NotificationCreator extends BroadcastReceiver {
+public class NotificationCreator extends WakefulBroadcastReceiver {
 
-    NotificationManager nm;
-    Uri uri;
-    private String notification[] = {"Read today's astonishing story.",
-                            "Read surprising fact from Black Box.",
-                            "Your horoscope is quite interesting today.",
-                            "Get inspired today with a great thought.",
-                            "Visit this scenic place inside."};
-    private Random random = new Random();
+
+    public static void setAlarm(Context context)
+    {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 9);
+
+        Intent intent = new Intent(context, NotificationCreator.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0,intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        am.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+
+    }
+
     @Override
     public void onReceive(Context context, Intent intent) {
-        Integer randomNumber = random.nextInt(5);
-        nm = (NotificationManager) context
-                .getSystemService(Context.NOTIFICATION_SERVICE);
 
-        uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        Intent notificationIntent = new Intent(context, MainActivity.class);
-        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-
-
-
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN)
-        {
-            Notification.Builder mBuilder = new Notification.Builder(context)
-                    .setSmallIcon(R.mipmap.ic_launcher)
-                    .setContentTitle("Greet")
-                    .setContentText(notification[randomNumber])
-                    .setContentIntent(pendingIntent)
-                    .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
-                    .setLights(Color.BLUE, 3000, 3000)
-                    .setSound(uri)
-                    .setAutoCancel(true);
-
-            nm.notify(24392, mBuilder.build());
-        }
-        else if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.JELLY_BEAN)
-        {
-            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
-                    .setSmallIcon(R.mipmap.ic_launcher)
-                    .setContentTitle("Greet")
-                    .setContentText(notification[randomNumber])
-                    .setContentIntent(pendingIntent)
-                    .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
-                    .setLights(Color.BLUE, 3000, 3000)
-                    .setSound(uri)
-                    .setAutoCancel(true);
-
-            nm.notify(24392, mBuilder.build());
-        }
-
+        Intent startIntent = AlarmService.startNotificationServices(context);
+        startWakefulService(context,startIntent);
     }
 }

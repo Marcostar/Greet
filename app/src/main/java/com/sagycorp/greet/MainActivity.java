@@ -1,7 +1,5 @@
 package com.sagycorp.greet;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -46,13 +44,12 @@ public class MainActivity extends AppCompatActivity
     SharedPreferences.Editor editor;
     private NavigationView navigationView;
     private Fragment fragment;
-    private String sign, title;
-    private boolean IsNotificationSet = false, CheckNotification;
+    private String title;
+    private boolean CheckNotification;
     private static final String appKey = "7efbcd7b61614667cb4d65ddcf9a026a4c044e085755707c";
 
 
     private boolean viewIsAtHome;
-    public String[] Horoscopes;
 
 
     @Override
@@ -60,20 +57,12 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         sharedPreferences = getSharedPreferences(Startup.PreferenceSETTINGS, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
-        CheckNotification = sharedPreferences.getBoolean(Startup.IsNotificationSet,false);
+        CheckNotification = sharedPreferences.getBoolean(Startup.NotificationSets,false);
 
-        if (IsNotificationSet == CheckNotification)
+        if (!CheckNotification)
         {
-            Calendar calendar = Calendar.getInstance();
-            calendar.set(Calendar.HOUR_OF_DAY, 9);
-            calendar.set(Calendar.MINUTE, 0);
-            calendar.set(Calendar.SECOND, 0);
-
-            Intent intent = new Intent(MainActivity.this, NotificationCreator.class);
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0,intent, PendingIntent.FLAG_UPDATE_CURRENT);
-            AlarmManager am = (AlarmManager) MainActivity.this.getSystemService(ALARM_SERVICE);
-            am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-            editor.putBoolean(Startup.IsNotificationSet,true).apply();
+            NotificationCreator.setAlarm(getApplicationContext());
+            editor.putBoolean(Startup.NotificationSets,true).apply();
         }
         setContentView(R.layout.activity_main);
 
@@ -157,6 +146,7 @@ public class MainActivity extends AppCompatActivity
         if(id == R.id.suggestions)
         {
             Intent Email = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "suggestions@sagycorp.com", null));
+            Email.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
             Email.putExtra(Intent.EXTRA_SUBJECT,"Advice for making this better app");
             Email.putExtra(Intent.EXTRA_TEXT, "**Your Demands/Suggestions here**");
             startActivity(Intent.createChooser(Email, "Share Your Advice with :"));
@@ -165,7 +155,8 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.tellFriend)
         {
             Intent sendIntent = new Intent(Intent.ACTION_SEND);
-            sendIntent.putExtra(Intent.EXTRA_TEXT, "I found very interesting app!!\nGreet! Your storyteller, trip consultant, an astrological advisor and much more."+"\nDownload Greet\n"+ "http://goo.gl/T1AS5u");
+            sendIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, "I am using an interesting app!!\nGreet! Your storyteller, trip consultant, an astrological advisor and much more. Now it has hundreds of offline astonishing facts and quotes that will inspire us."+"\nDownload Greet\n"+ "http://goo.gl/T1AS5u");
             sendIntent.setType("text/plain");
             startActivity(sendIntent);
             return true;

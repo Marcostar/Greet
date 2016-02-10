@@ -40,7 +40,7 @@ public class FullStory extends AppCompatActivity {
     private ScrollView StoryViewLayout;
     private LinearLayout LoadingLayout, ErrorLayout;
     private SwipeRefreshLayout RefreshLayout;
-    private Boolean visiblity = false;
+    private Boolean visibility = false;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     private Tracker mTracker;
@@ -86,7 +86,7 @@ public class FullStory extends AppCompatActivity {
         RefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if(!visiblity){
+                if(!visibility){
                     ErrorLayout.setVisibility(View.GONE);
                     initiateRequest();
                 }
@@ -109,11 +109,11 @@ public class FullStory extends AppCompatActivity {
                     StoryDescription.setText(response.getString("Description"));
                     StoryImage.setImageUrl(response.getString("ImageURL"),imageLoader);
 
-                    //set visiblity
-                    visiblity = true;
+                    //set visibility
+                    visibility = true;
 
                 } catch (JSONException e) {
-                    visiblity = false;
+                    visibility = false;
                     e.printStackTrace();
                 }
                 RefreshLayout.setRefreshing(false);
@@ -154,7 +154,7 @@ public class FullStory extends AppCompatActivity {
 
         if (id == R.id.Refresh)
         {
-            if(!visiblity) {
+            if(!visibility) {
                 if (!RefreshLayout.isRefreshing()) {
                     ErrorLayout.setVisibility(View.GONE);
                     RefreshLayout.setRefreshing(true);
@@ -177,6 +177,7 @@ public class FullStory extends AppCompatActivity {
                         .build());
 
                 Intent sendIntent = new Intent(Intent.ACTION_SEND);
+                sendIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
                 sendIntent.putExtra(Intent.EXTRA_TEXT, "Read\n"+ InShort +"\nwith Greet."+"\n"+"http://goo.gl/T1AS5u");
                 sendIntent.setType("text/plain");
                 startActivity(sendIntent);
@@ -187,6 +188,7 @@ public class FullStory extends AppCompatActivity {
         if(id == R.id.suggestions)
         {
             Intent Email = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "suggestions@sagycorp.com", null));
+            Email.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
             Email.putExtra(Intent.EXTRA_SUBJECT,"Advice for making this better app");
             Email.putExtra(Intent.EXTRA_TEXT, "**Your Demands/Suggestions here**");
             startActivity(Intent.createChooser(Email, "Share Your Advice with :"));
@@ -195,7 +197,8 @@ public class FullStory extends AppCompatActivity {
         if (id == R.id.tellFriend)
         {
             Intent sendIntent = new Intent(Intent.ACTION_SEND);
-            sendIntent.putExtra(Intent.EXTRA_TEXT, "I found very interesting app!!\nGreet! Your storyteller, trip consultant, an astrological advisor and much more."+"\nDownload Greet\n"+ "http://goo.gl/T1AS5u");
+            sendIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, "I am using an interesting app!!\n" + "Greet! Your storyteller, trip consultant, an astrological advisor and much more. Now it has hundreds of offline astonishing facts and quotes that will inspire us."+"\nDownload Greet\n"+ "http://goo.gl/T1AS5u");
             sendIntent.setType("text/plain");
             startActivity(sendIntent);
             return true;
